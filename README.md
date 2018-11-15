@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/7728908292561b7ccbc4/maintainability)](https://codeclimate.com/github/Haliont/tellents/maintainability)
+[![Build Status](https://travis-ci.org/Haliont/tellents.svg?branch=master)](https://travis-ci.org/Haliont/tellents)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
