@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Reg() {
+export default function SignUp() {
   return (
     <form style={{ width: '100%' }} className="flexbox flex-wrap justify-space-center">
       <input required type="text" className="form-control mb-1" placeholder="First Name" />

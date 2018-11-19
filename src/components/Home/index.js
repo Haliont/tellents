@@ -1,7 +1,7 @@
 import './Home.css';
 import cn from 'classnames';
 import React, { Component } from 'react';
-import Reg from '../Reg';
+import SignUp from '../SignUp';
 import Auth from '../Auth';
 
 const tabs = {
@@ -15,7 +15,7 @@ const getTab = (tabName) => {
       return <Auth />;
     case tabs.signUp:
     default:
-      return <Reg />;
+      return <SignUp />;
   }
 };
 
