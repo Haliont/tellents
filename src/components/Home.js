@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import Reg from './Reg';
+import Auth from './Auth';
 
 class Home extends Component {
   state = {
-    activeTab: 'registration',
+    activeTab: 'auth',
   };
 
   render() {
     const { activeTab } = this.state;
-    return activeTab === 'registration'
-      ? <Reg />
-      : <p>Another tab</p>;
+
+    switch (activeTab) {
+      case 'auth':
+        return <Auth />;
+      case 'reg':
+      default:
+        return <Reg />;
+    }
   }
 }
 
