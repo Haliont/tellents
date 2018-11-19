@@ -2,7 +2,7 @@ import './Home.css';
 import cn from 'classnames';
 import React, { Component } from 'react';
 import SignUp from '../SignUp';
-import Auth from '../Auth';
+import SignIn from '../SignIn';
 
 const tabs = {
   signIn: 'signIn',
@@ -12,7 +12,7 @@ const tabs = {
 const getTab = (tabName) => {
   switch (tabName) {
     case tabs.signIn:
-      return <Auth />;
+      return <SignIn />;
     case tabs.signUp:
     default:
       return <SignUp />;
