@@ -17,10 +17,10 @@ export default function Reg() {
   return (
     <div style={rootStyle}>
       <form style={formStyle} className="flexbox flex-wrap justify-space-center sign-up-form">
-        <input required className="form-control mb-1" placeholder="First Name" />
-        <input required className="form-control mb-1" placeholder="Last Name" />
-        <input required className="form-control mb-1" placeholder="Email" />
-        <input required className="form-control mb-1" placeholder="Password" />
+        <input required type="text" className="form-control mb-1" placeholder="First Name" />
+        <input required type="text" className="form-control mb-1" placeholder="Last Name" />
+        <input required type="email" className="form-control mb-1" placeholder="Email" />
+        <input required type="password" className="form-control mb-1" placeholder="Password" />
         <button type="submit" className="btn w-100">
           <span className="button-content">
             START NOW
