@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
+import Home from './Home';
 
 class App extends Component {
   render() {
-    const { text } = this.props;
-    return (
-      <div className="App">
-        <p>{text}</p>
-      </div>
-    );
+    return <Home />;
   }
 }
 
