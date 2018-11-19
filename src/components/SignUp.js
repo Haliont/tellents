@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form';
+import Input from './Input';
 
-export default function SignUp() {
-  return (
-    <form style={{ width: '100%' }} className="flexbox flex-wrap justify-space-center">
-      <input required type="text" className="form-control mb-1" placeholder="First Name" />
-      <input required type="text" className="form-control mb-1" placeholder="Last Name" />
-      <input required type="email" className="form-control mb-1" placeholder="Email" />
-      <input required type="password" className="form-control mb-1" placeholder="Password" />
-      <button type="submit" className="btn w-100">
-        <span className="button-content">
-          START NOW
-        </span>
-      </button>
-    </form>
-  );
+class SignUp extends Component {
+  submit = (/* formData */) => {
+    // console.log(formData);
+  }
+
+  render() {
+    const { handleSubmit } = this.props;
+
+    return (
+      <form
+        onSubmit={handleSubmit(this.submit)}
+        style={{ width: '100%' }}
+        className="flexbox flex-wrap justify-space-center"
+      >
+        <Field name="first_name" type="text" placeholder="First Name" component={Input} />
+        <Field name="last_name" type="text" placeholder="Last Name" component={Input} />
+        <Field name="email" type="email" placeholder="Email" component={Input} />
+        <Field name="password" type="password" placeholder="Password" component={Input} />
+
+        <button type="submit" className="btn w-100">
+          <span className="button-content">
+            START NOW
+          </span>
+        </button>
+      </form>
+    );
+  }
 }
+
+export default reduxForm({
+  form: 'signUp',
+})(SignUp);
