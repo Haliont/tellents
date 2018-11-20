@@ -3,8 +3,8 @@ import { reduxForm, Field } from 'redux-form';
 import Input from './Input';
 
 class SignIn extends Component {
-  submit = (data) => {
-    console.log(data);
+  submit = (/* data */) => {
+    // console.log(data);
   }
 
   render() {
