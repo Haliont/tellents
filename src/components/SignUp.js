@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { Field } from 'redux-form';
 import Input from './Input';
 
 class SignUp extends Component {
-  submit = (/* formData */) => {
-    // console.log(formData);
+  handleSignUp = (formData) => {
+    const { signUp } = this.props;
+    signUp(formData);
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, signingUpState } = this.props;
+    const isBtnDisabled = signingUpState === 'requested';
 
     return (
       <form
-        onSubmit={handleSubmit(this.submit)}
+        onSubmit={handleSubmit(this.handleSignUp)}
         style={{ width: '100%' }}
         className="flexbox flex-wrap justify-space-center"
       >
@@ -21,9 +23,13 @@ class SignUp extends Component {
         <Field name="email" type="email" placeholder="Email" component={Input} />
         <Field name="password" type="password" placeholder="Password" component={Input} />
 
-        <button type="submit" className="btn w-100">
+        <button
+          type="submit"
+          className="btn w-100"
+          disabled={isBtnDisabled}
+        >
           <span className="button-content">
-            START NOW
+            {isBtnDisabled ? 'Loading...' : 'START NOW'}
           </span>
         </button>
       </form>
@@ -31,6 +37,4 @@ class SignUp extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'signUp',
-})(SignUp);
+export default SignUp;

@@ -1,7 +1,7 @@
 import './Home.css';
 import cn from 'classnames';
 import React, { Component } from 'react';
-import SignUp from '../SignUp';
+import SignUp from '../../containers/SignUp';
 import SignIn from '../SignIn';
 
 const tabs = {
