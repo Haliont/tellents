@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import Input from './Input';
 
 class SignUp extends Component {
-  handleSignUp = (formData) => {
+  handleSignUp = (userData) => {
     const { signUp } = this.props;
-    signUp(formData);
+    signUp(userData);
   }
 
   render() {
     const { handleSubmit, signingUpState } = this.props;
-    const isBtnDisabled = signingUpState === 'requested';
+    const isRequestedForm = signingUpState === 'requested';
 
     return (
       <form
@@ -26,10 +26,10 @@ class SignUp extends Component {
         <button
           type="submit"
           className="btn w-100"
-          disabled={isBtnDisabled}
+          disabled={isRequestedForm}
         >
           <span className="button-content">
-            {isBtnDisabled ? 'Loading...' : 'START NOW'}
+            {isRequestedForm ? 'Loading...' : 'START NOW'}
           </span>
         </button>
       </form>
@@ -37,4 +37,6 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default reduxForm({
+  form: 'signUp',
+})(SignUp);

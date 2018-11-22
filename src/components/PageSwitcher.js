@@ -5,10 +5,10 @@ export default function PageSwitcher() {
   return (
     <ul>
       <li>
-        <Link to="/search">Поиск</Link>
+        <Link to="/private/search">Поиск</Link>
       </li>
       <li>
-        <Link to="/skills">Скиллы</Link>
+        <Link to="/private/skills">Скиллы</Link>
       </li>
     </ul>
   );

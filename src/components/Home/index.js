@@ -62,7 +62,9 @@ class Home extends Component {
   render() {
     const { isLoggedIn } = this.props;
 
-    if (isLoggedIn) return <Redirect to="/page-switcher" />;
+    if (isLoggedIn) {
+      return <Redirect to="/private" />;
+    }
 
     return (
       <div className="Home">
