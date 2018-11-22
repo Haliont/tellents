@@ -15,4 +15,11 @@ const enhancer = composeEnhancers(
   applyMiddleware(...middleware),
 );
 
-export default createStore(rootReducer, enhancer);
+const isLoggedIn = localStorage.isLoggedIn || false;
+const preloadState = { isLoggedIn: Boolean(isLoggedIn) };
+
+export default createStore(
+  rootReducer,
+  preloadState,
+  enhancer,
+);
