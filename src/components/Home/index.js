@@ -1,68 +1,74 @@
 import './Home.css';
 import cn from 'classnames';
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import SignUp from '../../containers/SignUp';
-import SignIn from '../SignIn';
+import SignIn from '../../containers/SignIn';
 
 const tabs = {
-  signIn: 'signIn',
-  signUp: 'signUp',
-};
-
-const getTab = (tabName) => {
-  switch (tabName) {
-    case tabs.signIn:
-      return <SignIn />;
-    case tabs.signUp:
-    default:
-      return <SignUp />;
-  }
+  signUp: {
+    btnText: 'Sign Up',
+    component: SignUp,
+  },
+  signIn: {
+    btnText: 'Sign In',
+    component: SignIn,
+  },
 };
 
 class Home extends Component {
   state = {
-    activeTabName: tabs.signUp,
+    activeTab: 'signUp',
   };
 
-  handleChangeTab = ({ target }) => {
-    const { tabName } = target.dataset;
-    this.setState({ activeTabName: tabName });
+  renderTabs() {
+    const { activeTab } = this.state;
+    const { component: Tab } = tabs[activeTab];
+
+    return (
+      <div className="Home-Main">
+        <Tab />
+      </div>
+    );
+  }
+
+  renderNav() {
+    const { activeTab } = this.state;
+
+    return (
+      <div className="Home-Nav">
+        {Object.keys(tabs).map((tabName) => {
+          const { btnText } = tabs[tabName];
+          return (
+            <button
+              key={tabName}
+              type="submit"
+              onClick={() => this.setState({ activeTab: tabName })}
+              className={cn({
+                btn: true,
+                'btn-primary': tabName === activeTab,
+                'Home-NavBtn': true,
+              })}
+            >
+              {btnText}
+            </button>
+          );
+        })}
+      </div>
+    );
   }
 
   render() {
-    const { activeTabName } = this.state;
+    const { isLoggedIn } = this.props;
 
-    const getBtnCn = tabName => cn({
-      btn: true,
-      'btn-primary': tabName === activeTabName,
-      'Home-NavBtn': true,
-    });
+    if (isLoggedIn) return <Redirect to="/page-switcher" />;
 
     return (
       <div className="Home">
         <div className="Home-Inner">
-          <div className="Home-Nav">
-            <button
-              onClick={this.handleChangeTab}
-              data-tab-name={tabs.signUp}
-              type="submit"
-              className={getBtnCn(tabs.signUp)}
-            >
-              Sign up
-            </button>
-
-            <button
-              onClick={this.handleChangeTab}
-              data-tab-name={tabs.signIn}
-              type="submit"
-              className={getBtnCn(tabs.signIn)}
-            >
-              Sign in
-            </button>
-          </div>
-          <div className="Home-Main">
-            {getTab(activeTabName)}
-          </div>
+          {this.renderNav()}
+          {this.renderTabs()}
         </div>
       </div>
     );
