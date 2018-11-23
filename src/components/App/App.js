@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 
 import Home from '../Home';
+import Dashboard from '../Dashboard';
 import PrivateRoute from '../PrivateRoute';
 
 class App extends Component {
@@ -20,7 +21,11 @@ class App extends Component {
               <Home {...props} isLoggedIn={isLoggedIn} />
             )}
           />
-          <PrivateRoute isLoggedIn={isLoggedIn} />
+          <PrivateRoute
+            path="/dashboard"
+            component={Dashboard}
+            isLoggedIn={isLoggedIn}
+          />
         </Fragment>
       </Router>
     );

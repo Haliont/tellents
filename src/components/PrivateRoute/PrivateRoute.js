@@ -1,23 +1,15 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import Skills from '../Skills';
-import Search from '../Search';
-import PageSwitcher from '../../containers/PageSwitcher';
+import { Route, Redirect } from 'react-router-dom';
 
-const Private = () => (
-  <Switch>
-    <Route path="/private/skills" component={Skills} />
-    <Route path="/private/search" component={Search} />
-    <Route path="/private" component={PageSwitcher} />
-  </Switch>
-);
-
-export default function ({ isLoggedIn }) {
+export default function ({
+  isLoggedIn, path, component: Component, ...rest
+}) {
   return (
     <Route
-      path="/private"
+      {...rest}
+      path={path}
       render={props => (isLoggedIn ? (
-        <Private {...props} />
+        <Component {...props} />
       ) : (
         <Redirect to="/" />
       ))}
