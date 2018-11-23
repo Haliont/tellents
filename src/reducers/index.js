@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 import signingUpState from './signingUpState';
 import signingInState from './signingInState';
@@ -8,7 +7,6 @@ import isLoggedIn from './isLoggedIn';
 import user from './user';
 
 export default combineReducers({
-  form: formReducer,
   user,
   isLoggedIn,
   signingUpState,

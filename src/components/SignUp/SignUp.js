@@ -1,42 +1,38 @@
-import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
-import Input from '../Input';
+import React from 'react';
+import AuthForm from '../AuthForm';
 
-class SignUp extends Component {
-  handleSignUp = (userData) => {
-    const { signUp } = this.props;
-    signUp(userData);
-  }
+const fields = [
+  {
+    name: 'first_name',
+    type: 'text',
+    placeholder: 'First Name',
+  },
+  {
+    name: 'last_name',
+    type: 'text',
+    placeholder: 'Last Name',
+  },
+  {
+    name: 'email',
+    type: 'email',
+    placeholder: 'Email',
+  },
+  {
+    name: 'password',
+    type: 'password',
+    placeholder: 'Password',
+  },
+];
 
-  render() {
-    const { handleSubmit, signingUpState } = this.props;
-    const isRequestedForm = signingUpState === 'requested';
-
-    return (
-      <form
-        onSubmit={handleSubmit(this.handleSignUp)}
-        style={{ width: '100%' }}
-        className="flexbox flex-wrap justify-space-center"
-      >
-        <Field name="first_name" type="text" placeholder="First Name" component={Input} />
-        <Field name="last_name" type="text" placeholder="Last Name" component={Input} />
-        <Field name="email" type="email" placeholder="Email" component={Input} />
-        <Field name="password" type="password" placeholder="Password" component={Input} />
-
-        <button
-          type="submit"
-          className="btn w-100"
-          disabled={isRequestedForm}
-        >
-          <span className="button-content">
-            {isRequestedForm ? 'Loading...' : 'START NOW'}
-          </span>
-        </button>
-      </form>
-    );
-  }
+function SignUp({ signingUpState, signUp }) {
+  return (
+    <AuthForm
+      fields={fields}
+      submitText="START NOW"
+      onSubmit={userData => signUp(userData)}
+      isRequested={signingUpState === 'requested'}
+    />
+  );
 }
 
-export default reduxForm({
-  form: 'signUp',
-})(SignUp);
+export default SignUp;
