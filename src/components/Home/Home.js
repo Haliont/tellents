@@ -63,7 +63,7 @@ class Home extends Component {
     const { isLoggedIn } = this.props;
 
     if (isLoggedIn) {
-      return <Redirect to="/private" />;
+      return <Redirect to="/dashboard" />;
     }
 
     return (

@@ -9,10 +9,10 @@ export default function PageSwitcher({ signOut }) {
       </button>
       <ul>
         <li>
-          <Link to="/private/search">Поиск</Link>
+          <Link to="/dashboard/search">Поиск</Link>
         </li>
         <li>
-          <Link to="/private/skills">Скиллы</Link>
+          <Link to="/dashboard/skills">Скиллы</Link>
         </li>
       </ul>
     </>
