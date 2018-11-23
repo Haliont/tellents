@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import Input from './Input';
+import Input from '../Input';
 
 class SignUp extends Component {
   handleSignUp = (userData) => {

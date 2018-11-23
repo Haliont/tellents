@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Skills from './Skills';
-import Search from './Search';
-import PageSwitcher from './PageSwitcher';
+import Skills from '../Skills';
+import Search from '../Search';
+import PageSwitcher from '../PageSwitcher';
 
 const Private = () => (
   <Switch>
