@@ -1,5 +1,5 @@
 import Auth from 'j-toker';
-import { combineActions, handleActions } from 'redux-actions';
+import { combineActions, handleActions, createAction } from 'redux-actions';
 import { signInSuccess, signInFailure, signInRequest } from './signingInState';
 import { signUpSuccess, signUpFailure, signUpRequest } from './signingUpState';
 import { validateTokenSuccess, validateTokenFailure, validateTokenRequest } from './validationTokenState';
@@ -39,6 +39,8 @@ export const validateToken = userData => (dispatch) => {
     });
 };
 
+export const signOut = createAction('SIGN_OUT');
+
 export default handleActions({
   [combineActions(
     signInSuccess,
@@ -49,5 +51,9 @@ export default handleActions({
     { payload: userData },
   ) {
     return userData;
+  },
+  [signOut]() {
+    Auth.signOut();
+    return {};
   },
 }, {});
