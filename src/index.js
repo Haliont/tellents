@@ -12,7 +12,9 @@ import { validateToken } from './reducers/user';
 import store from './store';
 
 store.subscribe(() => {
-  localStorage.isLoggedIn = store.getState().isLoggedIn;
+  const { isLoggedIn, user } = store.getState();
+  localStorage.isLoggedIn = isLoggedIn;
+  localStorage.user = JSON.stringify(user);
 });
 
 if (store.getState().isLoggedIn) {

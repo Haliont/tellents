@@ -16,7 +16,12 @@ const enhancer = composeEnhancers(
 );
 
 const isLoggedIn = localStorage.isLoggedIn || false;
-const preloadState = { isLoggedIn: Boolean(isLoggedIn) };
+const user = localStorage.user || JSON.stringify({ full_name: 'Alan Kay' });
+
+const preloadState = {
+  user: JSON.parse(user),
+  isLoggedIn: Boolean(isLoggedIn),
+};
 
 export default createStore(
   rootReducer,

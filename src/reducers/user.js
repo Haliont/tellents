@@ -52,8 +52,8 @@ export default handleActions({
   ) {
     return userData;
   },
-  [signOut](state) {
+  [signOut]() {
     Auth.signOut();
-    return state;
+    return {};
   },
 }, {});
