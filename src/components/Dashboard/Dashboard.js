@@ -3,9 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 
 import Skills from '../Skills';
 import Search from '../Search';
-import Header from '../../containers/Header';
+import PageSwitcher from '../PageSwitcher';
 
-import PageSwitcher from '../../containers/PageSwitcher';
+import Header from '../../containers/Header';
 
 class Dashboard extends Component {
   render() {

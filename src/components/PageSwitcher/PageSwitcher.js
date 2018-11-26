@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function PageSwitcher({ signOut }) {
+export default function PageSwitcher() {
   return (
     <>
-      <button type="button" onClick={() => signOut()}>
-        Sign Out
-      </button>
       <ul>
         <li>
           <Link to="/dashboard/search">Поиск</Link>
