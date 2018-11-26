@@ -3,7 +3,10 @@ const fs = require('fs');
 module.exports = (name) => {
   const normalName = [name[0].toUpperCase(), name.slice(1)].join('');
   const containerPath = `./src/containers/${normalName}.js`;
-  const containerBody = `import { connect } from 'react-redux';\n// import { actionName } from '../reducers/reducerName';\nimport Component from '../components/${normalName}';\n\nconst mapStateToProps = () => ({});\n\nexport default connect(\n  mapStateToProps,\n  // { actionName },\n)(Component);\n`;
+
+  const containerBody = fs
+    .readFileSync(`./creators/templates/containerTemplate.txt`, 'utf8')
+    .replace(/{name}/gi, normalName);
 
   try {
     fs.writeFileSync(containerPath, containerBody);

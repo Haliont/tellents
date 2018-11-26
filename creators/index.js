@@ -1,11 +1,11 @@
-const createComponent = require('./createComponent');
-const createContainer = require('./createContainer');
+const componentCreator = require('./componentCreator');
+const containerCreator = require('./containerCreator');
 
 const creators = {
-  '--component': createComponent,
-  '--container': createContainer,
-  '-c': createComponent,
-  '-C': createContainer,
+  '--component': componentCreator,
+  '--container': containerCreator,
+  '-c': componentCreator,
+  '-C': containerCreator,
 };
 
 module.exports = (type) => {

@@ -1,0 +1,17 @@
+import React, { Component } from 'react';
+
+// function {name}() {
+//   return (
+//     <p>{name}</p>
+//   );
+// }
+
+class {name} extends Component {
+  render() {
+    return (
+      <p>{name}</p>
+    );
+  }
+}
+
+export default {name};
