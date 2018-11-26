@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Skills from '../Skills';
 import Search from '../Search';
-import Header from '../Header';
+import Header from '../../containers/Header';
 
 import PageSwitcher from '../../containers/PageSwitcher';
 
@@ -21,7 +21,6 @@ class Dashboard extends Component {
             </Switch>
           </div>
         </div>
-        <div>Footer</div>
       </div>
     );
   }

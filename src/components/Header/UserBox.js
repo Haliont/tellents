@@ -11,14 +11,14 @@ class UserBox extends Component {
   }));
 
   render() {
-    const { username } = this.props;
+    const { username, onSignOut, userAvatar } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="user-box">
         <div
           className="user-photo"
           style={{
-            backgroundImage: `url(${noAvatar})`,
+            backgroundImage: `url(${userAvatar || noAvatar})`,
           }}
         />
         <div
@@ -37,14 +37,23 @@ class UserBox extends Component {
             {username}
             <span className="caret" />
           </a>
+
           <ul className="dropdown-menu">
             <li>
               <a href="javascript:void(0);" className="btn-reset" type="button">My skills</a>
             </li>
             <li>
-              <a href="javascript:void(0);" className="btn-reset" type="button">Log out</a>
+              <a
+                onClick={onSignOut}
+                href="javascript:void(0);"
+                className="btn-reset"
+                type="button"
+              >
+                Sign out
+              </a>
             </li>
           </ul>
+
         </div>
       </div>
     );

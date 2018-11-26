@@ -26,8 +26,14 @@ class Header extends Component {
     isOpenOnMobile: !isOpenOnMobile,
   }));
 
+  handleSignOut = () => {
+    const { signOut } = this.props;
+    signOut();
+  }
+
   render() {
     const { isOpenOnMobile } = this.state;
+    const { username, userAvatar } = this.props;
 
     return (
       <nav
@@ -54,7 +60,11 @@ class Header extends Component {
             <NavList links={navLinks} />
           </section>
 
-          <UserBox username="Alan Kay" />
+          <UserBox
+            userAvatar={userAvatar}
+            username={username}
+            onSignOut={this.handleSignOut}
+          />
         </section>
       </nav>
     );

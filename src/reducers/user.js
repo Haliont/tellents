@@ -28,11 +28,11 @@ export const signUp = userData => (dispatch) => {
     });
 };
 
-export const validateToken = userData => (dispatch) => {
+export const validateToken = () => (dispatch) => {
   dispatch(validateTokenRequest());
-  Auth.validateToken(userData)
-    .then((res) => {
-      dispatch(validateTokenSuccess(res.data));
+  Auth.validateToken()
+    .then((data) => {
+      dispatch(validateTokenSuccess(data));
     })
     .fail(() => {
       dispatch(validateTokenFailure());
@@ -52,8 +52,8 @@ export default handleActions({
   ) {
     return userData;
   },
-  [signOut]() {
+  [signOut](state) {
     Auth.signOut();
-    return {};
+    return state;
   },
 }, {});
