@@ -6,10 +6,10 @@ export default function PageSwitcher() {
     <>
       <ul>
         <li>
-          <Link to="/dashboard/search">Поиск</Link>
+          <Link to="/dashboard/find/">Поиск</Link>
         </li>
         <li>
-          <Link to="/dashboard/skills">Скиллы</Link>
+          <Link to="/dashboard/your-office/skills">Скиллы</Link>
         </li>
       </ul>
     </>

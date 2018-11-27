@@ -9,11 +9,11 @@ import NavList from './NavList';
 const navLinks = [
   {
     name: 'Find',
-    path: 'dashboard/find',
+    path: '/dashboard/find',
   },
   {
     name: 'Your office',
-    path: 'dashboard/your-office',
+    path: '/dashboard/your-office',
   },
 ];
 

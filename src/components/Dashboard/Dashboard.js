@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Skills from '../Skills';
+import YourOffice from '../YourOffice';
 import Search from '../Search';
 import PageSwitcher from '../PageSwitcher';
 
@@ -15,8 +15,8 @@ class Dashboard extends Component {
         <div className="content">
           <div className="container-fluid">
             <Switch>
-              <Route path="/dashboard/skills" component={Skills} />
-              <Route path="/dashboard/search" component={Search} />
+              <Route path="/dashboard/your-office" component={YourOffice} />
+              <Route path="/dashboard/find" component={Search} />
               <Route path="/dashboard" component={PageSwitcher} />
             </Switch>
           </div>
