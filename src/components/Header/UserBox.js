@@ -6,6 +6,25 @@ import noAvatar from './imgs/no-avatar.png';
 class UserBox extends Component {
   state = { isOpen: false };
 
+  constructor(props) {
+    super(props);
+    this.componentRef = React.createRef();
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick);
+  }
+
+  handleDocumentClick = ({ target }) => {
+    if (!this.componentRef.current.contains(target)) {
+      this.setState({ isOpen: false });
+    }
+  }
+
   handleToggleOpen = () => this.setState(({ isOpen }) => ({
     isOpen: !isOpen,
   }));
@@ -14,7 +33,7 @@ class UserBox extends Component {
     const { username, onSignOut, userAvatar } = this.props;
     const { isOpen } = this.state;
     return (
-      <div className="user-box">
+      <div className="user-box" ref={this.componentRef}>
         <div
           className="user-photo"
           style={{
