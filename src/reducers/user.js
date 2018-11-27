@@ -54,6 +54,7 @@ export default handleActions({
   },
   [signOut]() {
     Auth.signOut();
+    localStorage.clear();
     return {};
   },
 }, {});
