@@ -31,6 +31,14 @@ class Skills extends React.Component {
     this.setState({ activeStep: 0 });
   }
 
+  handleEditSkill = (id) => {
+    console.log(`Edit ${id} skill `);
+  }
+
+  handleRemoveSkill = (id) => {
+    console.log(`Remove ${id} skill `);
+  }
+
   render() {
     const { activeStep } = this.state;
 
@@ -56,7 +64,13 @@ class Skills extends React.Component {
 
         </div>
 
-        {isFirstStep && <FirstStep />}
+        {isFirstStep && (
+          <FirstStep
+            onEditSkill={this.handleEditSkill}
+            onRemoveSkill={this.handleRemoveSkill}
+            skillList={[{ id: 1, title: 'Lorem ipsum Skill' }]}
+          />
+        )}
         {isSecondStep && (
           <SecondStep onNext={this.handleNext} />
         )}
