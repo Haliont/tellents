@@ -15,12 +15,12 @@ const enhancer = composeEnhancers(
   applyMiddleware(...middleware),
 );
 
-const isLoggedIn = localStorage.isLoggedIn || false;
+const isSignedIn = localStorage.isSignedIn || false;
 const user = localStorage.user || JSON.stringify({ full_name: 'Alan Kay' });
 
 const preloadState = {
   user: JSON.parse(user),
-  isLoggedIn: Boolean(isLoggedIn),
+  isSignedIn: Boolean(isSignedIn),
 };
 
 export default createStore(

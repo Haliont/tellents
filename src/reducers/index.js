@@ -3,12 +3,12 @@ import { combineReducers } from 'redux';
 import signingUpState from './signingUpState';
 import signingInState from './signingInState';
 import validationTokenState from './validationTokenState';
-import isLoggedIn from './isLoggedIn';
+import isSignedIn from './isSignedIn';
 import user from './user';
 
 export default combineReducers({
   user,
-  isLoggedIn,
+  isSignedIn,
   signingUpState,
   signingInState,
   validationTokenState,

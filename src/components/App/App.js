@@ -9,7 +9,7 @@ import PrivateRoute from '../PrivateRoute';
 
 class App extends Component {
   render() {
-    const { isLoggedIn } = this.props;
+    const { isSignedIn } = this.props;
 
     return (
       <Router>
@@ -18,13 +18,13 @@ class App extends Component {
             exact
             path="/"
             render={props => (
-              <Home {...props} isLoggedIn={isLoggedIn} />
+              <Home {...props} isSignedIn={isSignedIn} />
             )}
           />
           <PrivateRoute
             path="/dashboard"
             component={Dashboard}
-            isLoggedIn={isLoggedIn}
+            isSignedIn={isSignedIn}
           />
         </Fragment>
       </Router>

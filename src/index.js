@@ -12,12 +12,12 @@ import { validateToken } from './reducers/user';
 import store from './store';
 
 store.subscribe(() => {
-  const { isLoggedIn, user } = store.getState();
-  localStorage.isLoggedIn = isLoggedIn;
+  const { isSignedIn, user } = store.getState();
+  localStorage.isSignedIn = isSignedIn;
   localStorage.user = JSON.stringify(user);
 });
 
-if (store.getState().isLoggedIn) {
+if (store.getState().isSignedIn) {
   store.dispatch(validateToken());
 }
 

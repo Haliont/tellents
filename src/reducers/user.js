@@ -1,5 +1,6 @@
 import Auth from 'j-toker';
 import { combineActions, handleActions, createAction } from 'redux-actions';
+
 import { signInSuccess, signInFailure, signInRequest } from './signingInState';
 import { signUpSuccess, signUpFailure, signUpRequest } from './signingUpState';
 import { validateTokenSuccess, validateTokenFailure, validateTokenRequest } from './validationTokenState';
@@ -9,8 +10,8 @@ Auth.configure({ apiUrl: 'https://floating-atoll-63112.herokuapp.com/api' });
 export const signIn = userData => (dispatch) => {
   dispatch(signInRequest());
   Auth.emailSignIn(userData)
-    .then((res) => {
-      dispatch(signInSuccess(res.data));
+    .then(({ data: user }) => {
+      dispatch(signInSuccess(user));
     })
     .fail(() => {
       dispatch(signInFailure());
@@ -20,8 +21,8 @@ export const signIn = userData => (dispatch) => {
 export const signUp = userData => (dispatch) => {
   dispatch(signUpRequest());
   Auth.emailSignUp(userData)
-    .then((res) => {
-      dispatch(signUpSuccess(res.data));
+    .then(({ data: user }) => {
+      dispatch(signUpSuccess(user));
     })
     .fail(() => {
       dispatch(signUpFailure());
@@ -31,8 +32,8 @@ export const signUp = userData => (dispatch) => {
 export const validateToken = () => (dispatch) => {
   dispatch(validateTokenRequest());
   Auth.validateToken()
-    .then((data) => {
-      dispatch(validateTokenSuccess(data));
+    .then((user) => {
+      dispatch(validateTokenSuccess(user));
     })
     .fail(() => {
       dispatch(validateTokenFailure());

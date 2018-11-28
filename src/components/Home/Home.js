@@ -60,9 +60,9 @@ class Home extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isSignedIn } = this.props;
 
-    if (isLoggedIn) {
+    if (isSignedIn) {
       return <Redirect to="/dashboard" />;
     }
 
