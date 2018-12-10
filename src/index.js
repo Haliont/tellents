@@ -3,24 +3,35 @@ import './styles/main.css';
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import Auth from 'j-toker';
 
 import { Provider } from 'react-redux';
 import App from './containers/App';
 
-import { validateToken } from './reducers/user';
+import { validateToken } from './store/user/actions';
+import { getUserData, isSignedIn } from './store/user/selectors';
 
-import store from './store';
+import configureStore from './store';
 
-Auth.configure({ apiUrl: 'https://floating-atoll-63112.herokuapp.com/api' });
+const preloadState = {
+  user: {
+    userData: JSON.parse(
+      localStorage.userData || JSON.stringify({ full_name: 'Alan Kay' }),
+    ),
+    isSignedIn: JSON.parse(
+      localStorage.isSignedIn || JSON.stringify(false),
+    ),
+  },
+};
+
+const store = configureStore(preloadState);
 
 store.subscribe(() => {
-  const { isSignedIn, user } = store.getState();
-  localStorage.isSignedIn = isSignedIn;
-  localStorage.user = JSON.stringify(user);
+  const currentState = store.getState();
+  localStorage.isSignedIn = JSON.stringify(isSignedIn(currentState));
+  localStorage.userData = JSON.stringify(getUserData(currentState));
 });
 
-if (store.getState().isSignedIn) {
+if (isSignedIn(store.getState())) {
   store.dispatch(validateToken());
 }
 

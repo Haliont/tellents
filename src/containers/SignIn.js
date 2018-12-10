@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
-import { signIn } from '../reducers/user';
+import { signIn } from '../store/user/actions';
+import { isSigningIn } from '../store/user/selectors';
 import Component from '../components/SignIn';
 
-const mapStateToProps = ({ signingInState }) => ({ signingInState });
+const mapStateToProps = state => ({
+  isSigningIn: isSigningIn(state),
+});
 
 export default connect(
   mapStateToProps,

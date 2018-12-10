@@ -14,13 +14,13 @@ const fields = [
   },
 ];
 
-function SignIn({ signingInState, signIn }) {
+function SignIn({ isSigningIn, signIn }) {
   return (
     <AuthForm
       fields={fields}
       submitText="SIGN IN"
       onSubmit={userData => signIn(userData)}
-      isRequested={signingInState === 'requested'}
+      isRequested={isSigningIn}
     />
   );
 }

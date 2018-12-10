@@ -24,13 +24,13 @@ const fields = [
   },
 ];
 
-function SignUp({ signingUpState, signUp }) {
+function SignUp({ isSigningUp, signUp }) {
   return (
     <AuthForm
       fields={fields}
       submitText="START NOW"
       onSubmit={userData => signUp(userData)}
-      isRequested={signingUpState === 'requested'}
+      isRequested={isSigningUp}
     />
   );
 }
