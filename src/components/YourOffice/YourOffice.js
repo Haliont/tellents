@@ -3,7 +3,7 @@ import {
   Switch, Route, Link,
 } from 'react-router-dom';
 
-import Skills from '../Skills';
+import Skills from '../../containers/Skills';
 
 class YourOffice extends Component {
   render() {

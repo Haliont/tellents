@@ -3,6 +3,7 @@ import './styles/main.css';
 
 import ReactDOM from 'react-dom';
 import React from 'react';
+import Auth from 'j-toker';
 
 import { Provider } from 'react-redux';
 import App from './containers/App';
@@ -10,6 +11,8 @@ import App from './containers/App';
 import { validateToken } from './reducers/user';
 
 import store from './store';
+
+Auth.configure({ apiUrl: 'https://floating-atoll-63112.herokuapp.com/api' });
 
 store.subscribe(() => {
   const { isSignedIn, user } = store.getState();

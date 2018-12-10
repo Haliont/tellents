@@ -5,8 +5,6 @@ import { signInSuccess, signInFailure, signInRequest } from './signingInState';
 import { signUpSuccess, signUpFailure, signUpRequest } from './signingUpState';
 import { validateTokenSuccess, validateTokenFailure, validateTokenRequest } from './validationTokenState';
 
-Auth.configure({ apiUrl: 'https://floating-atoll-63112.herokuapp.com/api' });
-
 export const signIn = userData => (dispatch) => {
   dispatch(signInRequest());
   Auth.emailSignIn(userData)

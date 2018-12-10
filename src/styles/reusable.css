@@ -660,18 +660,18 @@ hr {
   padding: 3px;
   font-size: 8px;
 }
-input:checked + label > .checkbox-circle,
+input:checked + .checkbox-circle,
 .checkbox-block:hover .checkbox-circle,
 .radio:hover .checkbox-circle,
-input:checked + label > .checkbox-sqw,
+input:checked + .checkbox-sqw,
 .checkbox-block:hover .checkbox-sqw,
 .radio:hover .checkbox-sqw {
   color: #15a4fa;
 }
-input:checked + label > .checkbox-circle .icon,
+input:checked + .checkbox-circle .icon,
 .checkbox-block:hover .checkbox-circle .icon,
 .radio:hover .checkbox-circle .icon,
-input:checked + label > .checkbox-sqw .icon,
+input:checked + .checkbox-sqw .icon,
 .checkbox-block:hover .checkbox-sqw .icon,
 .radio:hover .checkbox-sqw .icon {
   visibility: visible;
