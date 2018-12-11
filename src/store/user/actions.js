@@ -1,7 +1,5 @@
-import Auth from 'j-toker';
 import { createAction } from 'redux-actions';
-
-Auth.configure({ apiUrl: 'https://floating-atoll-63112.herokuapp.com/api' });
+import AuthService from '../../services/AuthService';
 
 export const signInRequest = createAction('SIGN_IN_REQUEST');
 export const signInSuccess = createAction('SIGN_IN_SUCCESS');
@@ -17,41 +15,38 @@ export const validateTokenFailure = createAction('VALIDATE_TOKEN_FAILURE');
 
 export const signOutSuccess = createAction('SIGN_OUT_SUCCESS');
 
-export const signIn = values => (dispatch) => {
+export const signIn = values => async (dispatch) => {
   dispatch(signInRequest());
-  Auth.emailSignIn(values)
-    .then(({ data: userData }) => {
-      dispatch(signInSuccess(userData));
-    })
-    .fail(() => {
-      dispatch(signInFailure());
-    });
+  try {
+    const { data: userData } = await AuthService.signIn(values);
+    dispatch(signInSuccess(userData));
+  } catch (e) {
+    dispatch(signInFailure());
+  }
 };
 
-export const signUp = values => (dispatch) => {
+export const signUp = values => async (dispatch) => {
   dispatch(signUpRequest());
-  Auth.emailSignUp(values)
-    .then(({ data: user }) => {
-      dispatch(signUpSuccess(user));
-    })
-    .fail(() => {
-      dispatch(signUpFailure());
-    });
+  try {
+    const { data: userData } = await AuthService.signIn(values);
+    dispatch(signUpSuccess(userData));
+  } catch (e) {
+    dispatch(signUpFailure());
+  }
 };
 
-export const validateToken = () => (dispatch) => {
+export const validateToken = () => async (dispatch) => {
   dispatch(validateTokenRequest());
-  Auth.validateToken()
-    .then((userData) => {
-      dispatch(validateTokenSuccess(userData));
-    })
-    .fail(() => {
-      dispatch(validateTokenFailure());
-    });
+  try {
+    const userData = await AuthService.validateToken();
+    dispatch(validateTokenSuccess(userData));
+  } catch (e) {
+    dispatch(validateTokenFailure());
+  }
 };
 
 export const signOut = () => (dispatch) => {
-  Auth.signOut();
+  AuthService.signOut();
   localStorage.clear();
   dispatch(signOutSuccess());
 };
