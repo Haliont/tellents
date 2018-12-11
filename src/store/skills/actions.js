@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
-import http from '../../http';
+import SkillsService from '../../services/SkillsService';
 import * as skillSelectors from './selectors';
 
 export const fetchSkillsRequest = createAction('FETCH_SKILLS_REQUEST');
@@ -14,8 +14,7 @@ export const updateSkillsFailure = createAction('UPDATE_SKILLS_FAILURE');
 export const fetchSkills = () => async (dispatch) => {
   dispatch(fetchSkillsRequest());
   try {
-    const { data } = await http.get('v1/profile/skills/user');
-    const { profession_categories: skillsArray } = data;
+    const skillsArray = await SkillsService.getSkills();
     const skills = _.keyBy(skillsArray, ({ id }) => id);
     dispatch(fetchSkillsSuccess(skills));
   } catch (e) {
@@ -31,9 +30,8 @@ export const updateSkills = (
     const skillsById = skillSelectors.getSkills(getState());
     const newSkills = updater(skillsById);
 
-    await http.post('v1/profile/skills', {
-      categories: skillSelectors.prepareSkillsForSending(newSkills),
-    });
+    await SkillsService
+      .updateSkills(skillSelectors.prepareSkillsForSending(newSkills));
 
     dispatch(updateSkillsSuccess(newSkills));
   } catch (e) {
