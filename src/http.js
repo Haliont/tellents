@@ -2,7 +2,12 @@ import axios from 'axios';
 import cookie from 'js-cookie';
 
 export default (function http() {
-  const headers = JSON.parse(cookie.get('authHeaders'));
+  let headers;
+  try {
+    headers = JSON.parse(cookie.get('authHeaders'));
+  } catch (e) {
+    /* best practices */
+  }
 
   const instance = axios.create({
     baseURL: 'https://floating-atoll-63112.herokuapp.com/api',
