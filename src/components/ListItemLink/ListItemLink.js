@@ -13,6 +13,7 @@ function ListItemLink({
   return (
     <Route
       path={to}
+      exact={activeOnlyWhenExact}
     >{({ match }) => (
       <li className={match ? activeClassName : ''} {...liProps}>
         <Link to={to} {...rest}>{children}</Link>
@@ -30,7 +31,6 @@ ListItemLink.defaultProps = {
 
 ListItemLink.propTypes = {
   to: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
   liProps: PropTypes.instanceOf(Object),
   activeClassName: PropTypes.string,
   activeOnlyWhenExact: PropTypes.bool,
