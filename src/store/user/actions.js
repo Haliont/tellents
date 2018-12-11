@@ -28,7 +28,7 @@ export const signIn = values => async (dispatch) => {
 export const signUp = values => async (dispatch) => {
   dispatch(signUpRequest());
   try {
-    const { data: userData } = await AuthService.signIn(values);
+    const { data: userData } = await AuthService.signUp(values);
     dispatch(signUpSuccess(userData));
   } catch (e) {
     dispatch(signUpFailure());
