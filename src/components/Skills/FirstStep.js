@@ -5,15 +5,25 @@ import SkillView from './SkillView';
 function FirstStep({ skillsList, onRemoveSkill, onEditSkill }) {
   return (
     <div>
-      {skillsList.map(({ id, skill_categories: categories, name }) => (
-        <SkillView
-          key={id}
-          name={name}
-          categories={categories}
-          onRemove={() => onRemoveSkill(id)}
-          onEdit={() => onEditSkill(id)}
-        />
-      ))}
+      {skillsList.length === 0
+        ? (
+          <div
+            style={{ padding: '10px 30px' }}
+          >
+            <div className="skill-block-title">
+              Click `Add` button to add your skills
+            </div>
+          </div>
+        )
+        : skillsList.map(({ id, skill_categories: categories, name }) => (
+          <SkillView
+            key={id}
+            name={name}
+            categories={categories}
+            onRemove={() => onRemoveSkill(id)}
+            onEdit={() => onEditSkill(id)}
+          />
+        ))}
     </div>
   );
 }

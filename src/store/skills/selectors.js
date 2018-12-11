@@ -6,7 +6,8 @@ export const getSkillsList = createSelector(
   skills => Object.values(skills),
 );
 
-// export const getSkillsCategoriesBySkillId = (skills, skillId) => skills[skillId][];
+export const getSelectedSkillCategories = skill => skill.skill_categories
+  .map(({ selected }) => selected);
 
 export const getSelectedSkillsWithSelectedCategories = createSelector(
   getSkillsList,
@@ -16,6 +17,16 @@ export const getSelectedSkillsWithSelectedCategories = createSelector(
       ...rest, skill_categories: sc.filter(({ selected }) => selected),
     })),
 );
+
+export const prepareSkillsForSending = skills => Object.values(skills)
+  .filter(({ selected }) => selected)
+  .map(skill => ({
+    id: skill.id,
+    skill_tags: skill.skill_tags.map(st => st.id),
+    skill_categories: skill.skill_categories
+      .filter(({ selected }) => selected)
+      .map(sc => sc.id),
+  }));
 
 export const isFetchingSkills = createSelector(
   state => state.skills.skillsFetchingState,
