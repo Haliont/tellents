@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import Component from '../components/Dashboard';
 
-// import { actionCreator } from '../reducers/user';
+import * as userSelectors from '../store/user/selectors';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  isBusy: userSelectors.isValidationToken(state),
+});
 
 export default connect(
   mapStateToProps,
-  // { actionCreator },
 )(Component);

@@ -4,8 +4,9 @@ import {
 } from 'react-router-dom';
 
 import Home from '../Home';
-import Dashboard from '../Dashboard';
 import PrivateRoute from '../PrivateRoute';
+
+import Dashboard from '../../containers/Dashboard';
 
 class App extends Component {
   render() {

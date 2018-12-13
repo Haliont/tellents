@@ -472,6 +472,9 @@ section.item-group {
   -moz-justify-content: flex-start;
   justify-content: flex-start;
 }
+.justify-flex-end {
+  justify-content: flex-end;
+}
 .vertical-align-items-center {
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -893,4 +896,9 @@ input:checked + .checkbox-sqw .icon,
 .skill-tags-block .skill-tag:hover {
   color: #fff;
   background-color: #15a4fa;
+}
+
+.word-wrap {
+  word-break: break-word;
+  white-space: pre-line;
 }
