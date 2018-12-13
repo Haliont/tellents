@@ -12,3 +12,4 @@ export const getUserAvatar = state => (state.user.userData.image || { url: '' })
 export const isSignedIn = state => state.user.isSignedIn;
 export const isSigningIn = state => state.user.signingInState === 'requested';
 export const isSigningUp = state => state.user.signingUpState === 'requested';
+export const isValidationToken = state => state.user.validationTokenState === 'requested';

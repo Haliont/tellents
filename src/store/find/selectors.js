@@ -25,4 +25,9 @@ export const getResultsCount = createSelector(
   resultsCount => resultsCount,
 );
 
+export const isTalentsRequested = createSelector(
+  state => state.find.talentsFetchingState,
+  talentsFetchingState => talentsFetchingState === 'requested',
+);
+
 export const getNextPage = state => state.find.nextPage;

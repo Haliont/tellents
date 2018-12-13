@@ -41,7 +41,7 @@ const signingUpState = handleActions({
   },
 }, 'none');
 
-const validateTokenState = handleActions({
+const validationTokenState = handleActions({
   [userActions.validateTokenRequest]() {
     return 'requested';
   },
@@ -73,6 +73,6 @@ export default combineReducers({
   isSignedIn,
   signingInState,
   signingUpState,
-  validateTokenState,
+  validationTokenState,
   userData,
 });

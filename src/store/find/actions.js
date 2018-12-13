@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import axios from 'axios';
 import JobsService from '../../services/JobsService';
 import * as jobsSelectors from './selectors';
 
@@ -22,7 +23,7 @@ export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
   try {
     const crnState = getState();
-    const page = jobsSelectors.getCurrentPage(crnState);
+    const page = jobsSelectors.getNextPage(crnState);
     const query = {};
 
     const {
@@ -43,15 +44,21 @@ export const fetchJobs = () => async (dispatch, getState) => {
 export const fetchTalents = () => async (dispatch) => {
   dispatch(fetchTalentsRequest());
   try {
-    const talents = [];
-    const meta = {};
+    const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/tellents/search', {
+      params: {
+        q: {},
+      },
+    });
+
+    const { users, meta } = data;
 
     dispatch(fetchTalentsSuccess({
-      newTalents: talents,
+      newTalents: users,
       newNextPage: meta.next_page,
       newResultsCount: meta.total_count,
     }));
   } catch (e) {
+    console.error(e);
     dispatch(fetchTalentsFailure());
   }
 };
