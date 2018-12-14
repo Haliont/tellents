@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-import JobsService from '../../services/JobsService';
-import * as jobsSelectors from './selectors';
+// import JobsService from '../../services/JobsService';
+// import * as jobsSelectors from './selectors';
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
 export const fetchJobsSuccess = createAction('FETCH_JOBS_SUCCESS');
@@ -19,17 +19,17 @@ export const fetchLanguagesRequest = createAction('FETCH_LANGUAGES_REQUEST');
 export const fetchLanguagesSuccess = createAction('FETCH_LANGUAGES_SUCCESS');
 export const fetchLanguagesFailure = createAction('FETCH_LANGUAGES_FAILURE');
 
-export const fetchJobs = () => async (dispatch, getState) => {
+export const fetchJobs = () => async (dispatch) => {
   dispatch(fetchJobsRequest());
   try {
-    const crnState = getState();
-    const page = jobsSelectors.getNextPage(crnState);
-    const query = {};
+    const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/jobs/search', {
+      params: {
+        page: 1,
+        q: {},
+      },
+    });
 
-    const {
-      jobs,
-      meta,
-    } = await JobsService.getJobs(page, query);
+    const { jobs, meta } = data;
 
     dispatch(fetchJobsSuccess({
       newJobs: jobs,
@@ -58,7 +58,7 @@ export const fetchTalents = () => async (dispatch) => {
       newResultsCount: meta.total_count,
     }));
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     dispatch(fetchTalentsFailure());
   }
 };

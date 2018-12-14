@@ -65,6 +65,18 @@ const talentsFetchingState = handleActions({
   },
 }, 'none');
 
+const jobsFetchingState = handleActions({
+  [findActions.fetchJobsRequest]() {
+    return 'requested';
+  },
+  [findActions.fetchJobsSuccess]() {
+    return 'success';
+  },
+  [findActions.fetchJobsFailure]() {
+    return 'failed';
+  },
+}, 'none');
+
 export default combineReducers({
   jobs,
   talents,
@@ -72,5 +84,6 @@ export default combineReducers({
   countries,
   languages,
   resultsCount,
+  jobsFetchingState,
   talentsFetchingState,
 });

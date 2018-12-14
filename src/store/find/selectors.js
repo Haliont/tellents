@@ -30,4 +30,9 @@ export const isTalentsRequested = createSelector(
   talentsFetchingState => talentsFetchingState === 'requested',
 );
 
+export const isJobsRequested = createSelector(
+  state => state.find.jobsFetchingState,
+  jobsFetchingState => jobsFetchingState === 'requested',
+);
+
 export const getNextPage = state => state.find.nextPage;

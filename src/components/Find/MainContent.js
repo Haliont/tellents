@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import cn from 'classnames';
 
 import Filters from './Filters';
@@ -8,6 +8,7 @@ import RightSidebar from './RightSidebar';
 
 import { Row, Left, Right } from './Grid';
 import TalentsList from '../../containers/TalentsList';
+import JobsList from '../../containers/JobsList';
 
 export default function MainContent() {
   return (
@@ -19,17 +20,24 @@ export default function MainContent() {
       <Right
         className={cn('container-fluid job-boxes',
           {
-            'job-boxes--talents': true,
-            // 'job-boxes--jobs': props.location.pathname === '/dashboard/find/job',
+            // 'job-boxes--talents': true,
+            'job-boxes--jobs': true,
           })}
       >
         <Row>
           <div className="col-xs-12">
             {/* <CardsContainer /> */}
-            <Route
-              path="/dashboard/find/talent"
-              component={TalentsList}
-            />
+            <Switch>
+              <Route
+                path="/dashboard/find/talent"
+                component={TalentsList}
+              />
+              <Route
+                path="/dashboard/find/job"
+                component={JobsList}
+              />
+              <Redirect to="/dashboard/find/job" />
+            </Switch>
           </div>
           <RightSidebar />
         </Row>
