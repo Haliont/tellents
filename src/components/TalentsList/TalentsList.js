@@ -48,6 +48,9 @@ class TalentsList extends Component {
             languages={talent.languages}
             lastActive={talent.last_seen_at}
             placeOfWork={talent.place_to_work}
+            offers={talent.offers}
+            savedCount={talent.saved_count}
+            promotions={talent.promotions}
           />
         ))}
       </div>

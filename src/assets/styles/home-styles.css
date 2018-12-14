@@ -609,6 +609,11 @@
 .job-boxes--jobs .job-box-details .job-details-right-body {
   padding: 15px 35px;
 }
+.job-details-talents-position {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .job-boxes--jobs
   .job-box-details
   .job-details-right
@@ -737,7 +742,6 @@
 .job-box-block .job-box-details .about-block-wrapper {
   background-color: #f6f6f6;
   padding: 10px 20px;
-  width: 26%;
   min-width: 190px;
   -webkit-flex-shrink: 2;
   -moz-flex-shrink: 2;
@@ -811,8 +815,11 @@
   border-bottom: 2px solid #eeeeee;
 }
 .job-box-details .job-details-right-header > div {
-  padding: 0 35px;
+  padding: 0 25px;
   margin: auto 0;
+}
+.job-boxes--talents .job-box-details .stat {
+  padding: 0;
 }
 .job-box-details .job-details-right-header .likes {
   border-right: solid 1px #eeeeee;
@@ -853,6 +860,13 @@
 .job-details-right-header .stat .stat-block {
   margin: 5px 10px;
   max-width: auto;
+}
+.stat .stat-block-btn {
+  position: relative;
+  top: 1px;
+  padding: 5px;
+  transition: 0.3s;
+  border: none;
 }
 .job-details-right-header .stat .stat-block > span {
   display: block;
@@ -993,6 +1007,19 @@
 }
 .job-boxes-footer .btn:hover {
   color: #1293e1;
+}
+
+.job-box .job-box-footer .card-promotion-description,
+.other-details .other-description {
+  font-size: 13px;
+  color: #4b5053;
+}
+
+.job-details-feedback-scroll {
+  height: 320px;
+  display: block;
+  overflow-y: overlay;
+  overflow-x: hidden;
 }
 /*JOB-BOXES - END*/
 

@@ -30,8 +30,8 @@ class TalentCard extends React.Component {
 
   handleScrollToDropdown = () => {
     // const coords = this.dropdownRef.current;
-    const coords = 150;
-    window.scrollTo(coords);
+    // const coords = 150;
+    // window.scrollTo(coords);
   };
 
   handleClickAnotherCard = ({ target }) => {
@@ -70,6 +70,7 @@ class TalentCard extends React.Component {
 
     const dropdownProps = {
       onClose: this.handleToggle,
+      ...this.props,
     };
 
     const { isOpen } = this.state;
