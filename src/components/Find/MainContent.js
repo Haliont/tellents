@@ -3,30 +3,29 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import cn from 'classnames';
 
 import Filters from './Filters';
-// import CardsContainer from './CardsContainer';
 import RightSidebar from './RightSidebar';
 
-import { Row, Left, Right } from './Grid';
+import * as Grid from './Grid';
 import TalentsList from '../../containers/TalentsList';
 import JobsList from '../../containers/JobsList';
 
 export default function MainContent() {
   return (
-    <Row className="main-content">
-      <Left>
+    <Grid.Row className="main-content">
+      <Grid.Left>
         <Filters />
-      </Left>
-
-      <Right
+      </Grid.Left>
+      <Grid.Right
         className={cn('container-fluid job-boxes',
           {
-            // 'job-boxes--talents': true,
-            'job-boxes--jobs': true,
+            'job-boxes--talents': true,
+            // 'job-boxes--jobs': true,
           })}
       >
-        <Row>
+
+        <Grid.Row>
+
           <div className="col-xs-12">
-            {/* <CardsContainer /> */}
             <Switch>
               <Route
                 path="/dashboard/find/talent"
@@ -36,12 +35,14 @@ export default function MainContent() {
                 path="/dashboard/find/job"
                 component={JobsList}
               />
-              <Redirect to="/dashboard/find/job" />
+              <Redirect to="/dashboard/find/talent" />
             </Switch>
           </div>
+
           <RightSidebar />
-        </Row>
-      </Right>
-    </Row>
+        </Grid.Row>
+
+      </Grid.Right>
+    </Grid.Row>
   );
 }

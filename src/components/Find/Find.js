@@ -12,7 +12,6 @@ function Find({ username }) {
       <Header username={username} />
       <JobBoxes />
       <MainContent />
-      {/* <Redirect to="/dashboard/find/talent" /> */}
     </div>
   );
 }
