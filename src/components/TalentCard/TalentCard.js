@@ -1,126 +1,108 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import cn from 'classnames';
-
-import Header from './Header';
-import Body from './Body';
-import Footer from './Footer';
+import PropTypes from 'prop-types';
+import FindCard from '../FindCard';
+import Preview from './Preview';
 import Dropdown from './Dropdown';
 
-class TalentCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-    this.rootRef = React.createRef();
-  }
+const buildPreviewProps = ({
+  userRate,
+  username,
+  skillTags,
+  workHours,
+  jobsCount,
+  description,
+  availability,
+  userAvatarSrc,
+  promotionTitle,
+  userProfession,
+}) => ({
+  userRate,
+  username,
+  skillTags,
+  workHours,
+  jobsCount,
+  description,
+  availability,
+  userAvatarSrc,
+  promotionTitle,
+  userProfession,
+});
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickAnotherCard);
-  }
+const buildDropdownProps = ({
+  likes,
+  username,
+  jobsCount,
+  languages,
+  feedbacks,
+  workHours,
+  savedCount,
+  lastActive,
+  promotions,
+  placeOfWork,
+  availability,
+  userAvatarSrc,
+  userProfession,
+}) => ({
+  likes,
+  username,
+  jobsCount,
+  languages,
+  feedbacks,
+  workHours,
+  savedCount,
+  lastActive,
+  promotions,
+  placeOfWork,
+  availability,
+  userAvatarSrc,
+  userProfession,
+});
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickAnotherCard);
-  }
+function TalentCard({ inx, ...rest }) {
+  return (
+    <FindCard inx={inx}>
+      {(isEven, isOpen, toggle, scroll) => (
+        <>
+          <Preview
+            isEven={isEven}
+            isOpen={isOpen}
+            onOpen={toggle}
+            onScroll={scroll}
+            {...buildPreviewProps(rest)}
+          />
 
-  handleToggle = () => this.setState(({ isOpen }) => ({
-    isOpen: !isOpen,
-  }));
+          <FindCard.Caret />
 
-  handleScrollToDropdown = () => {
-    // const coords = this.dropdownRef.current;
-    // const coords = 150;
-    // window.scrollTo(coords);
-  };
-
-  handleClickAnotherCard = ({ target }) => {
-    if (
-      target.closest('.job-box-block')
-      && !this.rootRef.current.contains(target)
-    ) {
-      this.setState({ isOpen: false });
-    }
-  }
-
-  render() {
-    const {
-      name,
-      rate,
-      tags,
-      price,
-      isEven,
-      country,
-      photoUrl,
-      workHours,
-      jobsCount,
-      availability,
-      additionalInfo,
-      professionDesc,
-      professionTitle,
-    } = this.props;
-
-    const headerProps = {
-      name, rate, photoUrl, professionTitle,
-    };
-
-    const bodyProps = {
-      professionDesc, availability, workHours, jobsCount, country, price, tags,
-    };
-
-    const dropdownProps = {
-      onClose: this.handleToggle,
-      ...this.props,
-    };
-
-    const { isOpen } = this.state;
-
-    return (
-      <div ref={this.rootRef} className="job-box-block">
-        <div
-          onClick={isOpen
-            ? this.handleScrollToDropdown
-            : this.handleToggle
-          }
-          className={cn('panel panel-default job-box awarded', {
-            open: isOpen,
-            'left-details': !isEven,
-            'right-details': isEven,
-          })}
-        >
-          <Header {...headerProps} />
-          <Body {...bodyProps} />
-          <Footer {...{ additionalInfo }} />
-        </div>
-
-        <div className="caret-block">
-          <span className="caret-top" />
-        </div>
-
-        {isOpen && <Dropdown {...dropdownProps} />}
-      </div>
-    );
-  }
+          {isOpen && (
+            <Dropdown
+              onClose={toggle}
+              {...buildDropdownProps(rest)}
+            />
+          )}
+        </>
+      )}
+    </FindCard>
+  );
 }
 
-// TalentCard.defaultProps = {
-//   rate: 0,
-//   profession: {},
-// };
-
 TalentCard.propTypes = {
-  // name,
-  // rate,
-  // tags,
-  // price,
-  // country,
-  // photoUrl,
-  // workHours,
-  // jobsCount,
-  // availability,
-  // additionalInfo,
-  // professionDesc,
-  // professionTitle,
+  likes: PropTypes.instanceOf(Array).isRequired,
+  userRate: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  skillTags: PropTypes.instanceOf(Array).isRequired,
+  jobsCount: PropTypes.number.isRequired,
+  languages: PropTypes.instanceOf(Array).isRequired,
+  feedbacks: PropTypes.instanceOf(Array).isRequired,
+  workHours: PropTypes.number.isRequired,
+  savedCount: PropTypes.number.isRequired,
+  lastActive: PropTypes.string.isRequired,
+  promotions: PropTypes.instanceOf(Array).isRequired,
+  description: PropTypes.string.isRequired,
+  placeOfWork: PropTypes.string.isRequired,
+  availability: PropTypes.string.isRequired,
+  userAvatarSrc: PropTypes.string.isRequired,
+  promotionTitle: PropTypes.string.isRequired,
+  userProfession: PropTypes.string.isRequired,
 };
 
 export default TalentCard;

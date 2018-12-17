@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+import moment from 'moment';
 import TalentCard from '../TalentCard';
 import Spinner from '../Spinner';
-// import PropTypes from 'prop-types';
-
-// function TalentsList() {
-//   return (
-//     <p>TalentsList</p>
-//   );
-// }
-// TalentsList.propTypes = {
-//   someProp: PropTypes.string.isRequired,
-// }
 
 class TalentsList extends Component {
   componentDidMount() {
@@ -28,34 +21,46 @@ class TalentsList extends Component {
 
     return (
       <div
-        className="job-boxes-wrapper job-boxes-wrapper--talents flexbox justify-space-between flex-wrap"
+        className={cn(
+          'flexbox',
+          'flex-wrap',
+          'job-boxes-wrapper',
+          'justify-space-between',
+          'job-boxes-wrapper--talents',
+        )}
       >
-        {talentsCards.map((talent, ix) => (
+        {talentsCards.map((t, inx) => (
           <TalentCard
-            isEven={(ix + 1) % 2 === 0}
-            key={talent.id}
-            name={talent.full_name}
-            photoUrl={talent.image.url}
-            professionTitle={(talent.profession || {}).title}
-            professionDesc={(talent.profession || {}).description}
-            workHours={talent.total_hours}
-            jobsCount={talent.total_jobs}
-            country={talent.country}
-            tags={talent.skill_tags}
-            price={talent.price}
-            additionalInfo={(talent.promotions[0] || {}).title}
-            availability={talent.availability}
-            languages={talent.languages}
-            lastActive={talent.last_seen_at}
-            placeOfWork={talent.place_to_work}
-            offers={talent.offers}
-            savedCount={talent.saved_count}
-            promotions={talent.promotions}
+            key={t.id}
+            inx={inx}
+            likes={t.offers}
+            userRate={t.total_rate}
+            username={t.full_name}
+            country={t.country}
+            skillTags={t.skill_tags}
+            jobsCount={t.total_jobs}
+            languages={t.languages}
+            feedbacks={t.offers}
+            workHours={t.total_hours}
+            savedCount={t.saved_count}
+            lastActive={moment(t.last_seen_at).fromNow()}
+            promotions={t.promotions}
+            description={(t.profession || {}).description}
+            placeOfWork={t.place_to_work}
+            availability={t.availability}
+            userAvatarSrc={t.image.url}
+            promotionTitle={(t.promotions[0] || {}).title}
+            userProfession={(t.profession || {}).title}
           />
         ))}
       </div>
     );
   }
 }
+
+TalentsList.propTypes = {
+  isBusy: PropTypes.bool.isRequired,
+  talentsCards: PropTypes.instanceOf(Array).isRequired,
+};
 
 export default TalentsList;
