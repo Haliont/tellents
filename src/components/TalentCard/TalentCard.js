@@ -85,6 +85,14 @@ function TalentCard({ inx, ...rest }) {
   );
 }
 
+TalentCard.defaultProps = {
+  description: null,
+  placeOfWork: null,
+  availability: null,
+  promotionTitle: null,
+  userProfession: null,
+};
+
 TalentCard.propTypes = {
   likes: PropTypes.instanceOf(Array).isRequired,
   userRate: PropTypes.number.isRequired,
@@ -97,12 +105,12 @@ TalentCard.propTypes = {
   savedCount: PropTypes.number.isRequired,
   lastActive: PropTypes.string.isRequired,
   promotions: PropTypes.instanceOf(Array).isRequired,
-  description: PropTypes.string.isRequired,
-  placeOfWork: PropTypes.string.isRequired,
-  availability: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  placeOfWork: PropTypes.string,
+  availability: PropTypes.string,
   userAvatarSrc: PropTypes.string.isRequired,
-  promotionTitle: PropTypes.string.isRequired,
-  userProfession: PropTypes.string.isRequired,
+  promotionTitle: PropTypes.string,
+  userProfession: PropTypes.string,
 };
 
 export default TalentCard;

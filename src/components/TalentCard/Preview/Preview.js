@@ -27,11 +27,11 @@ const buildBodyProps = ({
   availability,
 }) => {
   const tips = [
-    { iconName: 'award', text: '0%' },
-    { iconName: 'jobs', text: `${workHours} h/${jobsCount} j` },
-    { iconName: 'location', text: country },
-    { iconName: 'clock-1', text: availability },
-    { iconName: 'wallet', text: price && `$${price}` },
+    { id: 1, iconName: 'award', text: '0%' },
+    { id: 2, iconName: 'jobs', text: `${workHours} h/${jobsCount} j` },
+    { id: 3, iconName: 'location', text: country },
+    { id: 4, iconName: 'clock-1', text: availability },
+    { id: 5, iconName: 'wallet', text: price && `$${price}` },
   ];
 
   return {
@@ -77,13 +77,12 @@ Preview.defaultProps = {
 };
 
 Preview.propTypes = {
-  tips: PropTypes.instanceOf(Array).isRequired,
   isEven: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired,
   userRate: PropTypes.number,
   username: PropTypes.string.isRequired,
-  onScroll: PropTypes.string.isRequired,
+  onScroll: PropTypes.func.isRequired,
   skillTags: PropTypes.instanceOf(Array).isRequired,
   description: PropTypes.string,
   userAvatarSrc: PropTypes.string.isRequired,
