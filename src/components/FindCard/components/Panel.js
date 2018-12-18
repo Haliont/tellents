@@ -2,24 +2,23 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-function Panel({
+const Panel = React.forwardRef(({
   color, children, isDefault, className, onClick,
-}) {
-  return (
-    <div
-      className={cn(
-        'panel',
-        'panel-default',
-        color && `panel-${color}`,
-        isDefault && 'panel-default',
-        className,
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-}
+}, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'panel',
+      'panel-default',
+      color && `panel-${color}`,
+      isDefault && 'panel-default',
+      className,
+    )}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+));
 
 Panel.defaultProps = {
   color: null,

@@ -30,11 +30,10 @@ const buildHeaderProps = ({
   savedCount,
 }) => ({ likes, lastActive, savedCount });
 
-function Dropdown(props) {
+const Dropdown = React.forwardRef((props, ref) => {
   const { onClose, feedbacks, promotions } = props;
-
   return (
-    <FindCard.Dropdown>
+    <FindCard.Dropdown ref={ref}>
       <FindCard.DropdownCloseBtn
         onClick={onClose}
       />
@@ -59,7 +58,9 @@ function Dropdown(props) {
       </FindCard.DropdownContent>
     </FindCard.Dropdown>
   );
-}
+});
+
+Dropdown.displayName = 'Dropdown';
 
 Dropdown.defaultProps = {
   availability: '',

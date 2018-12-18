@@ -61,7 +61,7 @@ const buildDropdownProps = ({
 function TalentCard({ inx, ...rest }) {
   return (
     <FindCard inx={inx}>
-      {(isEven, isOpen, toggle, scroll) => (
+      {(isEven, isOpen, toggle, scroll, dropdownRef) => (
         <>
           <Preview
             isEven={isEven}
@@ -75,6 +75,7 @@ function TalentCard({ inx, ...rest }) {
 
           {isOpen && (
             <Dropdown
+              ref={dropdownRef}
               onClose={toggle}
               {...buildDropdownProps(rest)}
             />

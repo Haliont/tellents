@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-// import cn from 'classnames';
 
 import * as components from './components';
 
@@ -12,6 +11,7 @@ class FindCard extends Component {
     };
 
     this.rootRef = React.createRef();
+    this.dropdownRef = React.createRef();
   }
 
   componentDidMount() {
@@ -26,9 +26,14 @@ class FindCard extends Component {
     .setState(({ isOpen }) => ({ isOpen: !isOpen }));
 
   handleScrollToDropdown = () => {
-    // const coords = this.dropdownRef.current;
-    // const coords = 150;
-    // window.scrollTo(coords);
+    const offset = 55;
+    const { top } = this.dropdownRef.current.getBoundingClientRect();
+
+    window.scrollBy({
+      top: top - offset,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   handleClickAnotherCard = ({ target }) => {
@@ -50,7 +55,13 @@ class FindCard extends Component {
         ref={this.rootRef}
         className="job-box-block"
       >
-        {children(isEven, isOpen, this.handleToggle, this.handleScrollToDropdown)}
+        {children(
+          isEven,
+          isOpen,
+          this.handleToggle,
+          this.handleScrollToDropdown,
+          this.dropdownRef,
+        )}
       </div>
     );
   }
