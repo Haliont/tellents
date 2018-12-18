@@ -76,6 +76,7 @@ FindCard.DropdownContentBody    = components.DropdownContentBody;
 FindCard.DropdownCloseBtn       = components.DropdownCloseBtn;
 FindCard.DropdownContent        = components.DropdownContent;
 FindCard.PromotionsList         = components.PromotionsList;
+FindCard.PromotionItem          = components.PromotionItem;
 FindCard.LanguagesList          = components.LanguagesList;
 FindCard.PreviewHeader          = components.PreviewHeader;
 FindCard.PreviewFooter          = components.PreviewFooter;

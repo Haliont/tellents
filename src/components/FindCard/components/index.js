@@ -8,6 +8,7 @@ export { default as DropdownContent        } from './DropdownContent';
 export { default as DropdownCloseBtn       } from './DropdownCloseBtn';
 export { default as PromotionsList         } from './PromotionsList';
 export { default as PreviewHeader          } from './PreviewHeader';
+export { default as PromotionItem          } from './PromotionItem';
 export { default as PreviewFooter          } from './PreviewFooter';
 export { default as LanguagesList          } from './LanguagesList';
 export { default as InfoBtnsList           } from './InfoBtnsList';

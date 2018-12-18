@@ -1,144 +1,133 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import cn from 'classnames';
-import moment from 'moment';
-
-import Header from './Header';
-import Body from './Body';
-import Footer from './Footer';
+import PropTypes from 'prop-types';
+import FindCard from '../FindCard';
+import Preview from './Preview';
 import Dropdown from './Dropdown';
 
-class JobCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-    this.rootRef = React.createRef();
-  }
+const buildPreviewProps = ({
+  promotionTitle,
+  userAvatarSrc,
+  jobCreatedAt,
+  description,
+  commitment,
+  skillTags,
+  workHours,
+  jobsCount,
+  jobTitle,
+  username,
+  userRate,
+  country,
+  period,
+  level,
+  price,
+}) => ({
+  level,
+  price,
+  period,
+  country,
+  userRate,
+  username,
+  jobTitle,
+  skillTags,
+  workHours,
+  jobsCount,
+  commitment,
+  description,
+  jobCreatedAt,
+  userAvatarSrc,
+  promotionTitle,
+});
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickAnotherCard);
-  }
+const buildDropdownProps = ({
+  promotionDescription,
+  jobDescription,
+  promotionTitle,
+  userAvatarSrc,
+  skillTestSend,
+  placeOfWork,
+  jobsCount,
+  languages,
+  jobTitle,
+  username,
+  userRate,
+  period,
+  budget,
+  likes,
+}) => ({
+  likes,
+  budget,
+  period,
+  userRate,
+  username,
+  jobTitle,
+  jobsCount,
+  languages,
+  placeOfWork,
+  skillTestSend,
+  userAvatarSrc,
+  promotionTitle,
+  jobDescription,
+  promotionDescription,
+});
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickAnotherCard);
-  }
+function JobCard({ inx, ...rest }) {
+  return (
+    <FindCard inx={inx}>
+      {(isEven, isOpen, toggle, scroll, dropdownRef) => (
+        <>
+          <Preview
+            isEven={isEven}
+            isOpen={isOpen}
+            onOpen={toggle}
+            onScroll={scroll}
+            {...buildPreviewProps(rest)}
+          />
 
-  handleToggle = () => this.setState(({ isOpen }) => ({
-    isOpen: !isOpen,
-  }));
+          <FindCard.Caret />
 
-  handleScrollToDropdown = () => {
-    // const coords = this.dropdownRef.current;
-    // const coords = 150;
-    // window.scrollTo(coords);
-  };
-
-  handleClickAnotherCard = ({ target }) => {
-    if (
-      target.closest('.job-box-block')
-      && !this.rootRef.current.contains(target)
-    ) {
-      this.setState({ isOpen: false });
-    }
-  }
-
-  render() {
-    const {
-      title,
-      rate,
-      tags,
-      price,
-      isEven,
-      country,
-      photoUrl,
-      workHours,
-      jobsCount,
-      availability,
-      additionalInfo,
-      professionDesc,
-      professionTitle,
-      createdAt,
-      user,
-    } = this.props;
-
-    const headerProps = {
-      title,
-      rate,
-      photoUrl,
-      professionTitle,
-      username: user.full_name,
-      userPhotoUrl: user.image.url,
-      userRate: user.total_rate,
-      created: moment(createdAt).fromNow(),
-    };
-
-    const bodyProps = {
-      user,
-      professionDesc,
-      availability,
-      workHours,
-      jobsCount,
-      country,
-      price,
-      tags,
-      ...this.props,
-    };
-
-    const dropdownProps = {
-      onClose: this.handleToggle,
-      ...this.props,
-    };
-
-    const { isOpen } = this.state;
-
-    return (
-      <div ref={this.rootRef} className="job-box-block">
-        <div
-          onClick={isOpen
-            ? this.handleScrollToDropdown
-            : this.handleToggle
-          }
-          className={cn('panel panel-default job-box awarded', {
-            open: isOpen,
-            'left-details': !isEven,
-            'right-details': isEven,
-          })}
-        >
-          <Header {...headerProps} />
-          <Body {...bodyProps} />
-          <Footer {...{ additionalInfo }} />
-        </div>
-
-        <div className="caret-block">
-          <span className="caret-top" />
-        </div>
-
-        {isOpen && <Dropdown {...dropdownProps} />}
-      </div>
-    );
-  }
+          {isOpen && (
+            <Dropdown
+              ref={dropdownRef}
+              onClose={toggle}
+              {...buildDropdownProps(rest)}
+            />
+          )}
+        </>
+      )}
+    </FindCard>
+  );
 }
 
-// JobCard.defaultProps = {
-//   rate: 0,
-//   profession: {},
-// };
+JobCard.defaultProps = {
+  promotionDescription: null,
+  promotionTitle: null,
+  placeOfWork: null,
+  commitment: null,
+  country: null,
+  budget: null,
+  level: null,
+};
 
 JobCard.propTypes = {
-  // name,
-  // rate,
-  // tags,
-  // price,
-  // country,
-  // photoUrl,
-  // workHours,
-  // jobsCount,
-  // availability,
-  // additionalInfo,
-  // professionDesc,
-  // professionTitle,
+  promotionDescription: PropTypes.string,
+  promotionTitle: PropTypes.string,
+  jobDescription: PropTypes.string.isRequired,
+  skillTestSend: PropTypes.number.isRequired,
+  userAvatarSrc: PropTypes.string.isRequired,
+  jobCreatedAt: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  placeOfWork: PropTypes.string,
+  commitment: PropTypes.string,
+  skillTags: PropTypes.instanceOf(Array).isRequired,
+  languages: PropTypes.instanceOf(Array).isRequired,
+  jobTitle: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  userRate: PropTypes.number.isRequired,
+  country: PropTypes.string,
+  period: PropTypes.string.isRequired,
+  budget: PropTypes.number,
+  likes: PropTypes.instanceOf(Array).isRequired,
+  level: PropTypes.string,
 };
 
 export default JobCard;

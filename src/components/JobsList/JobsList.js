@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import JobCard from '../JobCard';
 import Spinner from '../Spinner';
-// import PropTypes from 'prop-types';
+
+const getPeriodNameByType = (type) => {
+  const map = {
+    day: 'D',
+    month: 'M',
+  };
+
+  return map[type];
+};
 
 class JobsList extends Component {
   componentDidMount() {
@@ -21,33 +30,30 @@ class JobsList extends Component {
       <div
         className="job-boxes-wrapper flexbox justify-space-between flex-wrap"
       >
-        {jobsCards.map((job, ix) => (
+        {jobsCards.map((j, inx) => (
           <JobCard
-            isEven={(ix + 1) % 2 === 0}
-            key={job.id}
-            title={job.title}
-            user={job.user}
-            promotionTitle={job.promotion_title}
-            promotionDescription={job.promotion_description}
-            payment={job.payment}
-            hourlyPrice={job.hourly_price}
-            price={job.price}
-            period={job.period}
-            periodType={job.period_type}
-            commitment={job.commitment}
-            level={job.level}
-            timeType={job.time_type}
-            status={job.status}
-            description={job.description}
-            contractGeneralNotes={job.contract_general_notes}
-            createdAt={job.created_at}
-            categories={job.categories}
-            owner={job.owner}
-            haveBid={job.have_bid}
-            privacy={job.privacy}
-            publicJob={job.public_job}
-            offers={job.offers}
-            skillTags={job.skill_tags}
+            promotionDescription={j.promotion_description}
+            promotionTitle={j.promotion_title}
+            jobDescription={j.description}
+            skillTestSend={j.user.skill_test_send}
+            userAvatarSrc={j.user.image.url}
+            jobCreatedAt={moment(j.createdAt).fromNow()}
+            description={j.description}
+            placeOfWork={j.user.placeOfWork}
+            commitment={j.commitment}
+            skillTags={j.skill_tags}
+            languages={j.user.languages}
+            jobsCount={j.user.total_jobs}
+            jobTitle={j.title}
+            username={j.user.full_name}
+            userRate={j.user.total_rate}
+            country={j.user.country}
+            period={`${j.period} ${getPeriodNameByType(j.period_type)}`}
+            budget={j.price}
+            likes={j.offers}
+            level={j.level}
+            key={j.id}
+            inx={inx}
           />
         ))}
       </div>
