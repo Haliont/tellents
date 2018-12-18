@@ -18,8 +18,8 @@ export default function MainContent() {
       <Grid.Right
         className={cn('container-fluid job-boxes',
           {
-            'job-boxes--talents': true,
-            // 'job-boxes--jobs': true,
+            // 'job-boxes--talents': true,
+            'job-boxes--jobs': true,
           })}
       >
 
@@ -35,7 +35,7 @@ export default function MainContent() {
                 path="/dashboard/find/job"
                 component={JobsList}
               />
-              <Redirect to="/dashboard/find/talent" />
+              <Redirect to="/dashboard/find/job" />
             </Switch>
           </div>
 

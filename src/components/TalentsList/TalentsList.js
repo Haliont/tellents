@@ -1,61 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import moment from 'moment';
 import TalentCard from '../TalentCard';
-import Spinner from '../Spinner';
+import FindCardsList from '../FindCardsList';
 
-class TalentsList extends Component {
-  componentDidMount() {
-    const { fetchTalents } = this.props;
-    const pageNumber = 1;
-    fetchTalents(pageNumber);
-  }
+const renderCard = (item, inx) => (
+  <TalentCard
+    key={item.id}
+    inx={inx}
+    likes={item.offers}
+    country={item.country}
+    userRate={item.total_rate}
+    username={item.full_name}
+    skillTags={item.skill_tags}
+    jobsCount={item.total_jobs}
+    languages={item.languages}
+    feedbacks={item.offers}
+    workHours={item.total_hours}
+    savedCount={item.saved_count}
+    lastActive={moment(item.last_seen_at).fromNow()}
+    promotions={item.promotions}
+    description={(item.profession || {}).description}
+    placeOfWork={item.place_to_work}
+    availability={item.availability}
+    userAvatarSrc={item.image.url}
+    promotionTitle={(item.promotions[0] || {}).title}
+    userProfession={(item.profession || {}).title}
+  />
+);
 
-  render() {
-    const { talentsCards, isBusy } = this.props;
-
-    if (isBusy) {
-      return <Spinner />;
-    }
-
-    return (
-      <div
-        className={cn(
-          'flexbox',
-          'flex-wrap',
-          'job-boxes-wrapper',
-          'justify-space-between',
-          'job-boxes-wrapper--talents',
-        )}
-      >
-        {talentsCards.map((t, inx) => (
-          <TalentCard
-            key={t.id}
-            inx={inx}
-            likes={t.offers}
-            userRate={t.total_rate}
-            username={t.full_name}
-            country={t.country}
-            skillTags={t.skill_tags}
-            jobsCount={t.total_jobs}
-            languages={t.languages}
-            feedbacks={t.offers}
-            workHours={t.total_hours}
-            savedCount={t.saved_count}
-            lastActive={moment(t.last_seen_at).fromNow()}
-            promotions={t.promotions}
-            description={(t.profession || {}).description}
-            placeOfWork={t.place_to_work}
-            availability={t.availability}
-            userAvatarSrc={t.image.url}
-            promotionTitle={(t.promotions[0] || {}).title}
-            userProfession={(t.profession || {}).title}
-          />
-        ))}
-      </div>
-    );
-  }
+function TalentsList({ talentsCards, isBusy, fetchTalents }) {
+  return (
+    <FindCardsList
+      isBusy={isBusy}
+      cards={talentsCards}
+      renderCard={renderCard}
+      fetchCards={fetchTalents}
+    />
+  );
 }
 
 TalentsList.propTypes = {
