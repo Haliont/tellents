@@ -22,6 +22,7 @@ export const fetchLanguagesFailure = createAction('FETCH_LANGUAGES_FAILURE');
 export const fetchJobs = () => async (dispatch) => {
   dispatch(fetchJobsRequest());
   try {
+    // will be refactored
     const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/jobs/search', {
       params: {
         page: 1,
@@ -44,6 +45,7 @@ export const fetchJobs = () => async (dispatch) => {
 export const fetchTalents = () => async (dispatch) => {
   dispatch(fetchTalentsRequest());
   try {
+    // will be refactored
     const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/tellents/search', {
       params: {
         q: {},
