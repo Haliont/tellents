@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import JobCard from '../JobCard';
-import Spinner from '../Spinner';
+import FindCardsList from '../FindCardsList';
 
 const getPeriodNameByType = (type) => {
   const map = {
@@ -12,53 +13,47 @@ const getPeriodNameByType = (type) => {
   return map[type];
 };
 
-class JobsList extends Component {
-  componentDidMount() {
-    const { fetchJobs } = this.props;
-    const pageNumber = 1;
-    fetchJobs(pageNumber);
-  }
+const renderCard = (item, inx) => (
+  <JobCard
+    promotionDescription={item.promotion_description}
+    promotionTitle={item.promotion_title}
+    jobDescription={item.description}
+    skillTestSend={item.user.skill_test_send}
+    userAvatarSrc={item.user.image.url}
+    jobCreatedAt={moment(item.created_at).fromNow()}
+    description={item.description}
+    placeOfWork={item.user.placeOfWork}
+    commitment={item.commitment}
+    skillTags={item.skill_tags}
+    languages={item.user.languages}
+    jobsCount={item.user.total_jobs}
+    jobTitle={item.title}
+    username={item.user.full_name}
+    userRate={item.user.total_rate}
+    country={item.user.country}
+    period={`${item.period} ${getPeriodNameByType(item.period_type)}`}
+    budget={item.price}
+    likes={item.offers}
+    level={item.level}
+    key={item.id}
+    inx={inx}
+  />
+);
 
-  render() {
-    const { jobsCards, isBusy } = this.props;
-
-    if (isBusy) {
-      return <Spinner />;
-    }
-
-    return (
-      <div
-        className="job-boxes-wrapper flexbox justify-space-between flex-wrap"
-      >
-        {jobsCards.map((j, inx) => (
-          <JobCard
-            promotionDescription={j.promotion_description}
-            promotionTitle={j.promotion_title}
-            jobDescription={j.description}
-            skillTestSend={j.user.skill_test_send}
-            userAvatarSrc={j.user.image.url}
-            jobCreatedAt={moment(j.created_at).fromNow()}
-            description={j.description}
-            placeOfWork={j.user.placeOfWork}
-            commitment={j.commitment}
-            skillTags={j.skill_tags}
-            languages={j.user.languages}
-            jobsCount={j.user.total_jobs}
-            jobTitle={j.title}
-            username={j.user.full_name}
-            userRate={j.user.total_rate}
-            country={j.user.country}
-            period={`${j.period} ${getPeriodNameByType(j.period_type)}`}
-            budget={j.price}
-            likes={j.offers}
-            level={j.level}
-            key={j.id}
-            inx={inx}
-          />
-        ))}
-      </div>
-    );
-  }
+function JobsList({ jobsCards, isBusy, fetchJobs }) {
+  return (
+    <FindCardsList
+      isBusy={isBusy}
+      cards={jobsCards}
+      renderCard={renderCard}
+      fetchCards={fetchJobs}
+    />
+  );
 }
+
+JobsList.propTypes = {
+  isBusy: PropTypes.bool.isRequired,
+  jobsCards: PropTypes.instanceOf(Array).isRequired,
+};
 
 export default JobsList;

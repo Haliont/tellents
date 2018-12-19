@@ -29,12 +29,17 @@ class FindCardsList extends React.Component {
         >
           {cards.map(renderCard)}
         </div>
-        <Button
-          onClick={onLoadMore}
+        <div
           className="job-boxes-footer"
         >
-          Load more
-        </Button>
+          <Button
+            onClick={onLoadMore}
+            className="btn btn-bg-transparent blue-color"
+            style={{ fontWeight: '700' }}
+          >
+            Load more
+          </Button>
+        </div>
       </>
     );
   }
