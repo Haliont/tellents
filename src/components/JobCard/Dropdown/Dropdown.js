@@ -91,10 +91,11 @@ Dropdown.defaultProps = {
   placeOfWork: null,
   availability: '',
   userProfession: '',
+  promotionDescription: null,
 };
 
 Dropdown.propTypes = {
-  promotionDescription: PropTypes.string.isRequired,
+  promotionDescription: PropTypes.string,
   jobDescription: PropTypes.string.isRequired,
   promotionTitle: PropTypes.string,
   userAvatarSrc: PropTypes.string.isRequired,

@@ -37,7 +37,7 @@ class JobsList extends Component {
             jobDescription={j.description}
             skillTestSend={j.user.skill_test_send}
             userAvatarSrc={j.user.image.url}
-            jobCreatedAt={moment(j.createdAt).fromNow()}
+            jobCreatedAt={moment(j.created_at).fromNow()}
             description={j.description}
             placeOfWork={j.user.placeOfWork}
             commitment={j.commitment}
