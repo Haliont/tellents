@@ -19,7 +19,7 @@ class Dashboard extends Component {
 
     return (
       <div className="wrapper">
-        <Header />
+        <Route path="/dashboard" component={Header} />
         <div className="content">
           <div className="container-fluid">
             <Switch>
