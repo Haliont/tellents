@@ -7,6 +7,7 @@ import * as findActions from '../store/find/actions';
 const mapStateToProps = state => ({
   talentsCards: findSelectors.getTalents(state),
   isBusy: findSelectors.isTalentsRequested(state),
+  isFirstRequest: findSelectors.isFirstTalentsRequest(state),
 });
 
 export default connect(

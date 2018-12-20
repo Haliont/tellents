@@ -6,6 +6,9 @@ const jobs = handleActions({
   [findActions.fetchJobsSuccess](state, { payload: { newJobs } }) {
     return [...state, ...newJobs];
   },
+  [findActions.clearList]() {
+    return [];
+  },
 }, []);
 
 const talents = handleActions({
@@ -14,6 +17,9 @@ const talents = handleActions({
     { payload: { newTalents } },
   ) {
     return [...state, ...newTalents];
+  },
+  [findActions.clearList]() {
+    return [];
   },
 }, []);
 
@@ -38,7 +44,7 @@ const languages = handleActions({
 const resultsCount = handleActions({
   [combineActions(
     findActions.fetchJobsSuccess,
-    findActions.fetchJobsSuccess,
+    findActions.fetchTalentsSuccess,
   )](_, { payload: { newResultsCount } }) {
     return newResultsCount;
   },
@@ -47,9 +53,12 @@ const resultsCount = handleActions({
 const nextPage = handleActions({
   [combineActions(
     findActions.fetchJobsSuccess,
-    findActions.fetchCountriesSuccess,
+    findActions.fetchTalentsSuccess,
   )](_, { payload: { newNextPage } }) {
     return newNextPage;
+  },
+  [findActions.clearList]() {
+    return 1;
   },
 }, 1);
 

@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-// import JobsService from '../../services/JobsService';
-// import * as jobsSelectors from './selectors';
+import * as findSelectors from './selectors';
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
 export const fetchJobsSuccess = createAction('FETCH_JOBS_SUCCESS');
@@ -19,13 +18,15 @@ export const fetchLanguagesRequest = createAction('FETCH_LANGUAGES_REQUEST');
 export const fetchLanguagesSuccess = createAction('FETCH_LANGUAGES_SUCCESS');
 export const fetchLanguagesFailure = createAction('FETCH_LANGUAGES_FAILURE');
 
-export const fetchJobs = () => async (dispatch) => {
+export const clearList = createAction('CLEAR_LIST');
+
+export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
   try {
     // will be refactored
     const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/jobs/search', {
       params: {
-        page: 1,
+        page: findSelectors.getNextPage(getState()),
         q: {},
       },
     });
@@ -42,12 +43,13 @@ export const fetchJobs = () => async (dispatch) => {
   }
 };
 
-export const fetchTalents = () => async (dispatch) => {
+export const fetchTalents = () => async (dispatch, getState) => {
   dispatch(fetchTalentsRequest());
   try {
     // will be refactored
     const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/tellents/search', {
       params: {
+        page: findSelectors.getNextPage(getState()),
         q: {},
       },
     });

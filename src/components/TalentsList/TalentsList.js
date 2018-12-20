@@ -29,13 +29,17 @@ const renderCard = (item, inx) => (
   />
 );
 
-function TalentsList({ talentsCards, isBusy, fetchTalents }) {
+function TalentsList({
+  talentsCards, isBusy, fetchTalents, clearList, isFirstRequest,
+}) {
   return (
     <FindCardsList
       isBusy={isBusy}
       cards={talentsCards}
+      clearList={clearList}
       renderCard={renderCard}
       fetchCards={fetchTalents}
+      isFirstRequest={isFirstRequest}
     />
   );
 }

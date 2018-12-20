@@ -5,20 +5,27 @@ import Button from '../Button';
 
 class FindCardsList extends React.Component {
   componentDidMount() {
-    const { fetchCards } = this.props;
-    const pageNumber = 1;
-    fetchCards(pageNumber);
+    const { fetchCards, clearList } = this.props;
+    clearList();
+    fetchCards();
   }
+
+  onLoadMore = () => {
+    const { fetchCards } = this.props;
+    fetchCards();
+  };
 
   render() {
     const {
       cards,
       isBusy,
-      onLoadMore,
       renderCard,
+      isFirstRequest,
     } = this.props;
 
-    if (isBusy) {
+    const { onLoadMore } = this;
+
+    if (isFirstRequest) {
       return <Spinner />;
     }
 
@@ -37,7 +44,7 @@ class FindCardsList extends React.Component {
             className="btn btn-bg-transparent blue-color"
             style={{ fontWeight: '700' }}
           >
-            Load more
+            {isBusy ? <Spinner /> : 'Load more'}
           </Button>
         </div>
       </>
@@ -48,7 +55,7 @@ class FindCardsList extends React.Component {
 FindCardsList.propTypes = {
   cards: PropTypes.instanceOf(Array).isRequired,
   isBusy: PropTypes.bool.isRequired,
-  onLoadMore: PropTypes.func.isRequired,
+  clearList: PropTypes.func.isRequired,
   renderCard: PropTypes.func.isRequired,
 };
 

@@ -15,6 +15,8 @@ export const getCountries = createSelector(
   countries => countries,
 );
 
+export const getNextPage = state => state.find.nextPage;
+
 export const getLanguages = createSelector(
   state => state.find.languages,
   languages => languages,
@@ -30,9 +32,17 @@ export const isTalentsRequested = createSelector(
   talentsFetchingState => talentsFetchingState === 'requested',
 );
 
+export const isFirstTalentsRequest = createSelector(
+  [isTalentsRequested, getNextPage],
+  (requested, nextPage) => requested && nextPage === 1,
+);
+
 export const isJobsRequested = createSelector(
   state => state.find.jobsFetchingState,
   jobsFetchingState => jobsFetchingState === 'requested',
 );
 
-export const getNextPage = state => state.find.nextPage;
+export const isFirstJobsRequest = createSelector(
+  [isJobsRequested, getNextPage],
+  (requested, nextPage) => requested && nextPage === 1,
+);

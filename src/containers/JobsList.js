@@ -7,6 +7,7 @@ import * as findActions from '../store/find/actions';
 const mapStateToProps = state => ({
   jobsCards: findSelectors.getJobs(state),
   isBusy: findSelectors.isJobsRequested(state),
+  isFirstRequest: findSelectors.isFirstJobsRequest(state),
 });
 
 export default connect(

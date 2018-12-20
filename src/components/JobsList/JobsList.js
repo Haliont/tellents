@@ -40,13 +40,17 @@ const renderCard = (item, inx) => (
   />
 );
 
-function JobsList({ jobsCards, isBusy, fetchJobs }) {
+function JobsList({
+  jobsCards, isBusy, fetchJobs, clearList, isFirstRequest,
+}) {
   return (
     <FindCardsList
       isBusy={isBusy}
       cards={jobsCards}
+      clearList={clearList}
       renderCard={renderCard}
       fetchCards={fetchJobs}
+      isFirstRequest={isFirstRequest}
     />
   );
 }
