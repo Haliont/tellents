@@ -2,13 +2,13 @@ import React from 'react';
 import JobTalentSwitcher from './JobTalentSwitcher';
 import { Row, Left, Right } from './Grid';
 
-export default function JobBoxes() {
+export default function JobBoxes({ searchObject, history }) {
   return (
     <Row
       className="job-boxes-header"
     >
       <Left>
-        <JobTalentSwitcher />
+        <JobTalentSwitcher searchObject={searchObject} history={history} />
       </Left>
       <Right>
         <div className="panel panel-default panel-gray job-boxes-nav">
