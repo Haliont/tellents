@@ -175,7 +175,7 @@ class Skills extends React.Component {
         </div>
 
         {isBusy
-          ? <Spinner />
+          ? <Spinner style={{ padding: '50px' }} />
           : this.renderBody({ isFirstStep, isSecondStep, isFinishStep })}
       </div>
     );
