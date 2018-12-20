@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import axios from 'axios';
+import FindService from '../../services/FindService';
 import * as findSelectors from './selectors';
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
@@ -23,15 +23,10 @@ export const clearList = createAction('CLEAR_LIST');
 export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
   try {
-    // will be refactored
-    const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/jobs/search', {
-      params: {
-        page: findSelectors.getNextPage(getState()),
-        q: {},
-      },
+    const { jobs, meta } = await FindService.getJobs({
+      page: findSelectors.getNextPage(getState()),
+      q: {},
     });
-
-    const { jobs, meta } = data;
 
     dispatch(fetchJobsSuccess({
       newJobs: jobs,
@@ -39,6 +34,7 @@ export const fetchJobs = () => async (dispatch, getState) => {
       newResultsCount: meta.total_count,
     }));
   } catch (e) {
+    console.error(e);
     dispatch(fetchJobsFailure());
   }
 };
@@ -46,15 +42,10 @@ export const fetchJobs = () => async (dispatch, getState) => {
 export const fetchTalents = () => async (dispatch, getState) => {
   dispatch(fetchTalentsRequest());
   try {
-    // will be refactored
-    const { data } = await axios.get('https://floating-atoll-63112.herokuapp.com/api/v1/tellents/search', {
-      params: {
-        page: findSelectors.getNextPage(getState()),
-        q: {},
-      },
+    const { users, meta } = await FindService.getTalents({
+      page: findSelectors.getNextPage(getState()),
+      q: {},
     });
-
-    const { users, meta } = data;
 
     dispatch(fetchTalentsSuccess({
       newTalents: users,
@@ -62,7 +53,7 @@ export const fetchTalents = () => async (dispatch, getState) => {
       newResultsCount: meta.total_count,
     }));
   } catch (e) {
-    // console.error(e);
+    console.error(e);
     dispatch(fetchTalentsFailure());
   }
 };
