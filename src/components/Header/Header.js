@@ -4,18 +4,20 @@ import logo from './imgs/logo.png';
 
 import UserBox from './UserBox';
 import Search from './Search';
-import NavList from './NavList';
+import ListItemLink from '../ListItemLink';
 
-const navLinks = [
-  {
-    name: 'Find',
-    path: '/dashboard/find',
-  },
-  {
-    name: 'Your office',
-    path: '/dashboard/your-office',
-  },
-];
+// import NavList from './NavList';
+
+// const navLinks = [
+//   {
+//     name: 'Find',
+//     path: '/dashboard/find',
+//   },
+//   {
+//     name: 'Your office',
+//     path: '/dashboard/your-office',
+//   },
+// ];
 
 class Header extends Component {
   state = {
@@ -57,7 +59,19 @@ class Header extends Component {
         <section className="nav-mobile flexbox justify-space-between">
           <section className="nav-tablet flexbox justify-space-center">
             <Search />
-            <NavList links={navLinks} />
+            {/* <NavList links={navLinks} /> */}
+            <div className="nav-list">
+              <ul className="flexbox justify-space-between">
+                <ListItemLink to="/dashboard/find">
+                  Find
+                  <div className="caret" />
+                </ListItemLink>
+                <ListItemLink to="/dashboard/your-office">
+                  Your office
+                  <div className="caret" />
+                </ListItemLink>
+              </ul>
+            </div>
           </section>
 
           <UserBox
