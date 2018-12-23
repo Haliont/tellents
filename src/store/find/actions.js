@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import FindService from '../../services/FindService';
 import * as findSelectors from './selectors';
+import { getQueryString } from '../../utils';
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
 export const fetchJobsSuccess = createAction('FETCH_JOBS_SUCCESS');
@@ -23,9 +24,10 @@ export const clearList = createAction('CLEAR_LIST');
 export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
   try {
+    const crnState = getState();
     const { jobs, meta } = await FindService.getJobs({
-      page: findSelectors.getNextPage(getState()),
-      q: {},
+      page: findSelectors.getNextPage(crnState),
+      q: getQueryString(),
     });
 
     dispatch(fetchJobsSuccess({
@@ -42,9 +44,10 @@ export const fetchJobs = () => async (dispatch, getState) => {
 export const fetchTalents = () => async (dispatch, getState) => {
   dispatch(fetchTalentsRequest());
   try {
+    const crnState = getState();
     const { users, meta } = await FindService.getTalents({
-      page: findSelectors.getNextPage(getState()),
-      q: {},
+      page: findSelectors.getNextPage(crnState),
+      q: getQueryString(),
     });
 
     dispatch(fetchTalentsSuccess({
@@ -61,7 +64,8 @@ export const fetchTalents = () => async (dispatch, getState) => {
 export const fetchCountries = () => async (dispatch) => {
   dispatch(fetchCountriesRequest());
   try {
-    dispatch(fetchCountriesSuccess());
+    const countries = await FindService.getCountries();
+    dispatch(fetchCountriesSuccess(countries));
   } catch (e) {
     dispatch(fetchCountriesFailure());
   }
@@ -70,7 +74,8 @@ export const fetchCountries = () => async (dispatch) => {
 export const fetchLanguages = () => async (dispatch) => {
   dispatch(fetchLanguagesRequest());
   try {
-    dispatch(fetchLanguagesSuccess());
+    const languages = await FindService.getLanguages();
+    dispatch(fetchLanguagesSuccess(languages));
   } catch (e) {
     dispatch(fetchLanguagesFailure());
   }

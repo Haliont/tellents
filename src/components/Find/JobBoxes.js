@@ -2,7 +2,7 @@ import React from 'react';
 import JobTalentSwitcher from './JobTalentSwitcher';
 import { Row, Left, Right } from './Grid';
 
-export default function JobBoxes({ searchObject, history }) {
+export default function JobBoxes({ searchObject, history, resultsCount }) {
   return (
     <Row
       className="job-boxes-header"
@@ -59,8 +59,8 @@ export default function JobBoxes({ searchObject, history }) {
                 </div>
               </button>
               <span className="sort-result">
-                Result:
-                <span className="sort-result-numb">25</span>
+                Result:{' '}
+                <span className="sort-result-numb">{resultsCount}</span>
               </span>
             </div>
           </nav>

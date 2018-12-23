@@ -24,6 +24,24 @@ const FindService = {
 
     return response.data;
   },
+
+  async getLanguages() {
+    const response = await axiosInstance({
+      method: 'GET',
+      url: '/misc/get_languages',
+    });
+
+    return response.data.languages;
+  },
+
+  async getCountries() {
+    const response = await axiosInstance({
+      method: 'GET',
+      url: '/misc/countries',
+    });
+
+    return response.data;
+  },
 };
 
 

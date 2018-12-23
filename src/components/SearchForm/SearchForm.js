@@ -1,47 +1,67 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { Form, Field } from 'react-final-form';
+import { setQueryString } from '../../utils';
 
-function SearchForm() {
-  return (
-    <div className="search-form">
-      <form className="my-search-form" role="search">
-        <input type="text" className="form-control" placeholder="Search for ..." />
-        <div className="search-filter radio-block clearfix">
-          <div className="radio">
-            <input type="radio" name="home-page-filter" id="jobs-filter-1" defaultValue="jobs-filter" defaultChecked />
-            <label htmlFor="jobs-filter-1">
-              <span className="radio-text mobile-hide">Jobs</span>
-              <span className="radio-text mobile-show">J</span>
-            </label>
-          </div>
-          <div className="radio">
-            <input type="radio" name="home-page-filter" id="talents-filter-1" defaultValue="talents-filter" />
-            <label htmlFor="talents-filter-1">
-              <span className="radio-text mobile-hide">Talents</span>
-              <span className="radio-text mobile-show">T</span>
-            </label>
-          </div>
-        </div>
-        <a href type="submit" className="btn-search"><i className="icon icon-loupe" /></a>
-      </form>
-    </div>
-  );
+const filters = [['jobs', 'Jobs'], ['talents', 'Talents']];
+
+const renderFilters = () => filters.map(([filterName, text]) => (
+  <div key={filterName} className="radio">
+    <input
+      defaultChecked
+      id={`${filterName}-filter`}
+      type="radio"
+      defaultValue={`${filterName}-filter`}
+      name="profile-page-filter"
+    />
+    <label htmlFor={`${filterName}-filter`}>
+      <span className="radio-text">{text}</span>
+    </label>
+  </div>
+));
+
+class SearchForm extends React.Component {
+  onSubmit = (values) => {
+    setQueryString(values);
+  }
+
+  render() {
+    const { onSubmit } = this;
+
+    return (
+      <div className="search-form">
+        <Form
+          onSubmit={onSubmit}
+        >
+          {({ handleSubmit }) => (
+            <form
+              role="search"
+              className="my-search-form"
+              onSubmit={handleSubmit}
+            >
+              <Field
+                type="text"
+                name="q"
+                component="input"
+                className="form-control"
+                placeholder="Search"
+              />
+              <div className="search-filter radio-block">
+                {renderFilters()}
+              </div>
+              <button
+                type="submit"
+                href="javascript:void(0)"
+                className="btn-search"
+              >
+                <i className="icon icon-loupe" />
+              </button>
+            </form>
+          )}
+        </Form>
+      </div>
+    );
+  }
 }
 
-// SearchForm.propTypes = {
-//   someProp: PropTypes.string.isRequired,
-// }
-
-// class SearchForm extends Component {
-//   static propTypes = {
-//     someProp: PropTypes.string.isRequired,
-//   }
-
-//   render() {
-//     return (
-//       <p>SearchForm</p>
-//     );
-//   }
-// }
 
 export default SearchForm;

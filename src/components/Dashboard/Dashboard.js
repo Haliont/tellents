@@ -23,9 +23,9 @@ class Dashboard extends Component {
         <div className="content">
           <div className="container-fluid">
             <Switch>
-              <Route path="/dashboard/your-office" component={YourOffice} />
               <Route path="/dashboard/find/talent" component={Find} />
               <Route path="/dashboard/find/job" component={Find} />
+              <Route path="/dashboard/your-office" component={YourOffice} />
               <Redirect from="/dashboard/find" to="/dashboard/find/talent" />
               <Route component={PageSwitcher} />
             </Switch>
