@@ -3,7 +3,7 @@ import React from 'react';
 function Item({ iconName, text }) {
   return (
     <div className="panel panel-default panel-btn">
-      <a href>
+      <a href="javascript:void;">
         <i className={`icon icon-${iconName}`} />
         <span>{text}</span>
       </a>

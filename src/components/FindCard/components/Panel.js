@@ -27,7 +27,7 @@ Panel.defaultProps = {
 };
 
 Panel.propTypes = {
-  color: PropTypes.oneOfType(['blue', 'pink', 'orange']),
+  color: PropTypes.oneOf(['blue', 'pink', 'orange']),
   onClick: PropTypes.func,
   isDefault: PropTypes.bool,
 };

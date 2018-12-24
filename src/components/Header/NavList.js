@@ -6,7 +6,7 @@ function NavList({ links }) {
     <div className="nav-list">
       <ul className="flexbox justify-space-between">
         {links.map(({ name, path }) => (
-          <ListItemLink key="name" to={path}>
+          <ListItemLink key={name} to={path}>
             {name}
             <div className="caret" />
           </ListItemLink>
