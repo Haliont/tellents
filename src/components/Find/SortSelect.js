@@ -34,19 +34,18 @@ class SortNav extends React.Component {
       .find(({ value }) => value === props.selected);
 
     this.state = {
-      active: active || 'Relevance',
+      active: (active || {}).text || 'Relevance',
     };
   }
 
   onClick = (text, value) => () => {
     const {
-      toggle, setFilter, filterCards, searchObject,
+      toggle, filterCards, searchObject,
     } = this.props;
 
     this.setState({ active: text });
 
-    setFilter({ sort: value });
-    filterCards(searchObject);
+    filterCards({ sort: value }, searchObject);
     toggle();
   };
 

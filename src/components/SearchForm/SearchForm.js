@@ -19,10 +19,9 @@ const renderFilters = () => filters.map(([filterName, text]) => (
 ));
 
 class SearchForm extends React.Component {
-  onSubmit = (values) => {
-    const { filterCards, setFilter, searchObject } = this.props;
-    setFilter(values);
-    filterCards(searchObject);
+  onSubmit = ({ q = '' }) => {
+    const { filterCards, searchObject } = this.props;
+    filterCards({ q }, searchObject);
   }
 
   render() {

@@ -4,7 +4,7 @@ import { Row, Left, Right } from './Grid';
 import SortSelect from './SortSelect';
 
 export default function JobBoxes({
-  searchObject, filterCards, history, resultsCount, setFilter, filters,
+  searchObject, filterCards, history, resultsCount, filters,
 }) {
   return (
     <Row
@@ -19,7 +19,6 @@ export default function JobBoxes({
             <div className="sort-nav">
               <span className="sort-nav-title">Sort By</span>
               <SortSelect
-                setFilter={setFilter}
                 selected={filters.sort}
                 filterCards={filterCards}
                 searchObject={searchObject}

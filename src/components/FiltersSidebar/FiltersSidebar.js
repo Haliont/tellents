@@ -31,29 +31,27 @@ class FiltersSidebar extends React.PureComponent {
   handleSelect = ({ target }) => {
     const { name, value } = target;
     const {
-      filterCards, searchObject, filters, setFilter,
+      filterCards, searchObject, filters,
     } = this.props;
 
     const newValue = filters[name] === value
       ? ''
       : value;
 
-    setFilter({ [name]: newValue });
-    filterCards(searchObject);
+    filterCards({ [name]: newValue }, searchObject);
   };
 
   handleMultiSelect = ({ target }) => {
     const { name, value } = target;
     const {
-      filterCards, searchObject, filters, setFilter,
+      filterCards, searchObject, filters,
     } = this.props;
 
     const newValues = filters[name].includes(value)
       ? filters[name].filter(v => v !== value)
       : [...filters[name], value];
 
-    setFilter({ [name]: newValues });
-    filterCards(searchObject);
+    filterCards({ [name]: newValues }, searchObject);
   };
 
   render() {

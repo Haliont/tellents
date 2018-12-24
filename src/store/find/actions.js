@@ -1,7 +1,11 @@
 import { createAction } from 'redux-actions';
+import qs from 'query-string';
+import { createBrowserHistory } from 'history';
 import FindService from '../../services/FindService';
 import * as findSelectors from './selectors';
-import { setQueryString } from '../../utils';
+import { shapeQsFromFilters } from '../../utils';
+
+const history = createBrowserHistory();
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
 export const fetchJobsSuccess = createAction('FETCH_JOBS_SUCCESS');
@@ -21,18 +25,7 @@ export const fetchLanguagesFailure = createAction('FETCH_LANGUAGES_FAILURE');
 
 export const clearList = createAction('CLEAR_LIST');
 export const clearFilters = createAction('CLEAR_FILTERS');
-
-export const setFilterSuccess = createAction('SET_FILTER_SUCCESS');
-
-export const setFilter = payload => (dispatch, getState) => {
-  const newFilters = {
-    ...findSelectors.getFilters(getState()),
-    ...payload,
-  };
-
-  setQueryString(payload);
-  dispatch(setFilterSuccess(newFilters));
-};
+export const setFilter = createAction('SET_FILTER');
 
 export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
@@ -73,12 +66,23 @@ export const fetchTalents = () => async (dispatch, getState) => {
   }
 };
 
-export const filterCards = filterObject => (dispatch) => {
-  const fetchMap = {
-    talent: fetchTalents,
-    job: fetchJobs,
+const fetchMap = {
+  talent: fetchTalents,
+  job: fetchJobs,
+};
+
+export const filterCards = (payload, filterObject) => (dispatch, getState) => {
+  const newFilters = {
+    ...findSelectors.getFilters(getState()),
+    ...payload,
   };
 
+  history.push({
+    pathname: `/dashboard/find/${filterObject}`,
+    search: qs.stringify(shapeQsFromFilters(newFilters)),
+  });
+
+  dispatch(setFilter(newFilters));
   dispatch(clearList());
   dispatch(fetchMap[filterObject]());
 };

@@ -7,18 +7,19 @@ export const stringify = value => value || 'N/A';
 
 const history = createBrowserHistory();
 
-export const setQueryString = (values) => {
-  const prev = qs.parse(history.location.search);
+// export const setQueryString = (values, searchObject) => {
+//   const prev = qs.parse(history.location.search);
 
-  const current = {
-    search: qs.stringify({
-      ...prev,
-      ...values,
-    }),
-  };
+//   const current = {
+//     pathname: `/dashboard/find/${searchObject}`,
+//     search: qs.stringify({
+//       ...prev,
+//       ...values,
+//     }),
+//   };
 
-  history.push(current);
-};
+//   history.push(current);
+// };
 
 export const getQueryString = () => history.location.search;
 
@@ -61,9 +62,5 @@ export const shapeQsFromFilters = filters => Object.keys(filters)
       return acc;
     }
 
-    if (typeof value === 'string') {
-      return { ...acc, [key]: value };
-    }
-
-    return { ...acc, [key]: value.join(',') };
+    return { ...acc, [key]: value };
   }, {});

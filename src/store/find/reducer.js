@@ -107,7 +107,7 @@ const initialFilters = {
 };
 
 const filters = handleActions({
-  [findActions.setFilterSuccess](_, { payload }) {
+  [findActions.setFilter](_, { payload }) {
     return payload;
   },
   [findActions.clearFilters]() {

@@ -5,7 +5,7 @@ import HelloBlock from '../HelloBlock';
 import { Row, Left, Right } from './Grid';
 
 function Header({
-  username, searchObject, filterCards, setFilter,
+  username, searchObject, filterCards,
 }) {
   return (
     <Row
@@ -17,7 +17,6 @@ function Header({
       <Right>
         <SearchForm
           filterCards={filterCards}
-          setFilter={setFilter}
           searchObject={searchObject}
         />
       </Right>
@@ -28,7 +27,6 @@ function Header({
 Header.propTypes = {
   searchObject: PropTypes.oneOf(['talent', 'job']).isRequired,
   filterCards: PropTypes.func.isRequired,
-  setFilter: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
 };
 
