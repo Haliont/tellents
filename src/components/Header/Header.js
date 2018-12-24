@@ -4,7 +4,6 @@ import logo from './imgs/logo.png';
 
 import UserBox from './UserBox';
 import NavList from './NavList';
-import SearchForm from '../SearchForm';
 
 const navLinks = [
   {
@@ -56,7 +55,6 @@ class Header extends Component {
 
         <section className="nav-mobile flexbox justify-space-between">
           <section className="nav-tablet flexbox justify-space-center">
-            <SearchForm />
             <NavList links={navLinks} />
           </section>
 

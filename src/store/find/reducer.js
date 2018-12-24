@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
 import * as findActions from './actions';
+import { shapeFiltersFromQs } from '../../utils';
 
 const jobs = handleActions({
   [findActions.fetchJobsSuccess](state, { payload: { newJobs } }) {
@@ -86,9 +87,38 @@ const jobsFetchingState = handleActions({
   },
 }, 'none');
 
+const initialFilters = {
+  avl: [],
+  exp: [],
+  ds: '',
+  skill: '',
+  rate: '',
+  post: '',
+  loc: [],
+  lang: [],
+  place: [],
+  payment: [],
+  p_from: '',
+  p_to: '',
+  bud: '',
+  prop: '',
+  q: '',
+  sort: '',
+};
+
+const filters = handleActions({
+  [findActions.setFilterSuccess](_, { payload }) {
+    return payload;
+  },
+  [findActions.clearFilters]() {
+    return initialFilters;
+  },
+}, { ...initialFilters, ...shapeFiltersFromQs() });
+
 export default combineReducers({
   jobs,
   talents,
+  filters,
   nextPage,
   countries,
   languages,

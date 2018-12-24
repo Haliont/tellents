@@ -1,50 +1,47 @@
 import React from 'react';
-import { Field } from 'react-final-form';
+import PropTypes from 'prop-types';
+import FilterControl from './FilterControl';
 
-export default function FreelancerRate() {
+function FreelancerRate({ selectedFilter, onChange }) {
+  const controlProps = {
+    onChange,
+    name: 'rate',
+    selectedFilter,
+  };
+
   return (
     <div className="filter-block">
       <div className="filter-title">
-        Freelancer Rate:
+       Freelancer Rate:
       </div>
       <div className="checkbox-list-block clearfix">
-        <div className="checkbox-block">
-          <Field name="rate" value="i_5" component="input" type="radio" id="checkbox-11.1" />
-          <label htmlFor="checkbox-11.1">
-            <span className="filter-checkbox">
-              <span className="icon icon-check-mark" />
-            </span>
-            <span className="checkbox-text">Best (5)</span>
-          </label>
-        </div>
-        <div className="checkbox-block">
-          <Field name="rate" value="i_5_4" component="input" type="radio" id="checkbox-11.2" />
-          <label htmlFor="checkbox-11.2">
-            <span className="filter-checkbox">
-              <span className="icon icon-check-mark" />
-            </span>
-            <span className="checkbox-text">5-4.8</span>
-          </label>
-        </div>
-        <div className="checkbox-block">
-          <Field name="rate" value="i_4" component="input" type="radio" id="checkbox-11.3" />
-          <label htmlFor="checkbox-11.3">
-            <span className="filter-checkbox">
-              <span className="icon icon-check-mark" />
-            </span>
-            <span className="checkbox-text">4.8-4.5</span>
-          </label>
-        </div>
-        <div className="checkbox-block">
-          <Field name="rate" value="l_4" component="input" type="radio" id="checkbox-11.4" />
-          <label htmlFor="checkbox-11.4">
-            <span className="filter-checkbox">
-              <span className="icon icon-check-mark" />
-            </span>
-            <span className="checkbox-text">{'<4.5'}</span>
-          </label>
-        </div>
+        <FilterControl
+          {...controlProps}
+          label="Best (5)"
+          value="i_5"
+        />
+        <FilterControl
+          {...controlProps}
+          label="5-4.8"
+          value="i_5_4"
+        />
+        <FilterControl
+          {...controlProps}
+          label="4.8-4.5"
+          value="i_4-95"
+        />
+        <FilterControl
+          {...controlProps}
+          label="< 4.5"
+          value="l_4"
+        />
       </div>
     </div>
   );
 }
+
+FreelancerRate.propTypes = {
+  selectedFilter: PropTypes.string.isRequired,
+};
+
+export default FreelancerRate;

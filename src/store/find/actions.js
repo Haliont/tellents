@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import FindService from '../../services/FindService';
 import * as findSelectors from './selectors';
-import { getQueryString } from '../../utils';
+import { setQueryString } from '../../utils';
 
 export const fetchJobsRequest = createAction('FETCH_JOBS_REQUEST');
 export const fetchJobsSuccess = createAction('FETCH_JOBS_SUCCESS');
@@ -20,6 +20,19 @@ export const fetchLanguagesSuccess = createAction('FETCH_LANGUAGES_SUCCESS');
 export const fetchLanguagesFailure = createAction('FETCH_LANGUAGES_FAILURE');
 
 export const clearList = createAction('CLEAR_LIST');
+export const clearFilters = createAction('CLEAR_FILTERS');
+
+export const setFilterSuccess = createAction('SET_FILTER_SUCCESS');
+
+export const setFilter = payload => (dispatch, getState) => {
+  const newFilters = {
+    ...findSelectors.getFilters(getState()),
+    ...payload,
+  };
+
+  setQueryString(payload);
+  dispatch(setFilterSuccess(newFilters));
+};
 
 export const fetchJobs = () => async (dispatch, getState) => {
   dispatch(fetchJobsRequest());
@@ -27,7 +40,7 @@ export const fetchJobs = () => async (dispatch, getState) => {
     const crnState = getState();
     const { jobs, meta } = await FindService.getJobs({
       page: findSelectors.getNextPage(crnState),
-      q: getQueryString(),
+      q: findSelectors.getQuery(crnState),
     });
 
     dispatch(fetchJobsSuccess({
@@ -36,7 +49,6 @@ export const fetchJobs = () => async (dispatch, getState) => {
       newResultsCount: meta.total_count,
     }));
   } catch (e) {
-    console.error(e);
     dispatch(fetchJobsFailure());
   }
 };
@@ -47,7 +59,7 @@ export const fetchTalents = () => async (dispatch, getState) => {
     const crnState = getState();
     const { users, meta } = await FindService.getTalents({
       page: findSelectors.getNextPage(crnState),
-      q: getQueryString(),
+      q: findSelectors.getQuery(crnState),
     });
 
     dispatch(fetchTalentsSuccess({
@@ -60,6 +72,17 @@ export const fetchTalents = () => async (dispatch, getState) => {
     dispatch(fetchTalentsFailure());
   }
 };
+
+export const filterCards = filterObject => (dispatch) => {
+  const fetchMap = {
+    talent: fetchTalents,
+    job: fetchJobs,
+  };
+
+  dispatch(clearList());
+  dispatch(fetchMap[filterObject]());
+};
+
 
 export const fetchCountries = () => async (dispatch) => {
   dispatch(fetchCountriesRequest());

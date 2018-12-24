@@ -10,18 +10,20 @@ const history = createBrowserHistory();
 export const setQueryString = (values) => {
   const prev = qs.parse(history.location.search);
 
-  history.push({
+  const current = {
     search: qs.stringify({
       ...prev,
       ...values,
     }),
-  });
+  };
+
+  history.push(current);
 };
 
-export const getQueryString = () => qs.parse(history.location.search);
+export const getQueryString = () => history.location.search;
 
 export const shapeFiltersFromQs = () => {
-  const filters = getQueryString();
+  const filters = qs.parse(getQueryString());
 
   if (filters.exp && !(filters.exp instanceof Array)) {
     filters.exp = [filters.exp];
@@ -43,5 +45,25 @@ export const shapeFiltersFromQs = () => {
     filters.place = [filters.place];
   }
 
+  if (filters.payment && !(filters.payment instanceof Array)) {
+    filters.payment = [filters.payment];
+  }
+
   return filters;
 };
+
+
+export const shapeQsFromFilters = filters => Object.keys(filters)
+  .reduce((acc, key) => {
+    const value = filters[key];
+
+    if (!value || !value.length) {
+      return acc;
+    }
+
+    if (typeof value === 'string') {
+      return { ...acc, [key]: value };
+    }
+
+    return { ...acc, [key]: value.join(',') };
+  }, {});

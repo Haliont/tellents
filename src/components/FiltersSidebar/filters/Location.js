@@ -1,8 +1,8 @@
 import React from 'react';
-import { Field } from 'react-final-form';
 import PropTypes from 'prop-types';
 import makeToggleable from '../../../HOC/makeToggleable';
 import FilterSelect from '../FilterSelect';
+import FilterControl from './FilterControl';
 
 class Location extends React.PureComponent {
   componentDidMount() {
@@ -12,8 +12,10 @@ class Location extends React.PureComponent {
 
   render() {
     const {
+      onChange,
       countries,
       selectedCount,
+      selectedFilter,
     } = this.props;
 
     return (
@@ -25,15 +27,14 @@ class Location extends React.PureComponent {
           title={`Country (${selectedCount || 'All'})`}
           items={countries}
           renderItem={({ id, name }) => (
-            <div key={id} className="checkbox-block">
-              <Field name="loc" component="input" value={name} type="checkbox" id={`checkbox-15.${id}`} />
-              <label htmlFor={`checkbox-15.${id}`}>
-                <span className="filter-checkbox">
-                  <span className="icon icon-check-mark" />
-                </span>
-                <span className="checkbox-text">{name}</span>
-              </label>
-            </div>
+            <FilterControl
+              key={id}
+              name="loc"
+              label={name}
+              value={name}
+              onChange={onChange}
+              selectedFilter={selectedFilter}
+            />
           )}
         />
       </div>
@@ -51,6 +52,8 @@ Location.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  onChange: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.instanceOf(Array).isRequired,
   fetchCountries: PropTypes.func.isRequired,
 };
 

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Form } from 'react-final-form';
 import PropTypes from 'prop-types';
-import AutoSave from './AutoSave';
 
 import SkillTestScore from './filters/SkillTestScore';
 import JobDoneSuccess from './filters/JobDoneSuccess';
@@ -18,17 +16,49 @@ import Posted from './filters/Posted';
 import Budget from './filters/Budget';
 import Place from './filters/Place';
 
-import { setQueryString } from '../../utils';
-
 class FiltersSidebar extends React.PureComponent {
-  onSave = (values) => {
-    setQueryString(values);
+  componentWillReceiveProps(nextProps) {
+    const {
+      searchObject,
+      clearFilters,
+    } = this.props;
+
+    if (searchObject !== nextProps.searchObject) {
+      clearFilters();
+    }
+  }
+
+  handleSelect = ({ target }) => {
+    const { name, value } = target;
+    const {
+      filterCards, searchObject, filters, setFilter,
+    } = this.props;
+
+    const newValue = filters[name] === value
+      ? ''
+      : value;
+
+    setFilter({ [name]: newValue });
+    filterCards(searchObject);
+  };
+
+  handleMultiSelect = ({ target }) => {
+    const { name, value } = target;
+    const {
+      filterCards, searchObject, filters, setFilter,
+    } = this.props;
+
+    const newValues = filters[name].includes(value)
+      ? filters[name].filter(v => v !== value)
+      : [...filters[name], value];
+
+    setFilter({ [name]: newValues });
+    filterCards(searchObject);
   };
 
   render() {
-    const { onSave } = this;
-
     const {
+      filters,
       languages,
       countries,
       searchObject,
@@ -39,44 +69,103 @@ class FiltersSidebar extends React.PureComponent {
     const isTalents = searchObject === 'talent';
     const isJobs = searchObject === 'job';
 
+    const { handleMultiSelect, handleSelect } = this;
+
     return (
-      <Form
-        // initialValues={}
-        onSubmit={onSave /* dont use, but is required */}
-      >
-        {({ values }) => (
-          <div className="panel panel-default">
-            <AutoSave onSave={onSave} />
-            <Experience />
+      <div className="panel panel-default">
+        <Experience
+          onChange={handleMultiSelect}
+          selectedFilter={filters.exp}
+        />
 
-            {isJobs && <JobDoneSuccess />}
-            {isJobs && <SkillTestScore />}
-            {isJobs && <FreelancerRate />}
-
-            {isTalents && <Posted />}
-            {isTalents && <Place />}
-
-            <Location
-              countries={countries}
-              fetchCountries={fetchCountries}
-              selectedCount={(values.loc || {}).length}
-            />
-            <Languages
-              languages={languages}
-              fetchLanguages={fetchLanguages}
-              selectedCount={(values.lang || {}).length}
-            />
-            <Availability />
-
-            {isTalents && <Payment />}
-            {isTalents && <Budget />}
-            {isTalents && <Proposals />}
-            {isTalents && <JobDelivery />}
-
-            {isJobs && <PlaceOfWork />}
-          </div>
+        {isTalents && (
+          <JobDoneSuccess
+            onChange={handleSelect}
+            selectedFilter={filters.ds}
+          />
         )}
-      </Form>
+
+        {isTalents && (
+          <SkillTestScore
+            onChange={handleSelect}
+            selectedFilter={filters.skill}
+          />
+        )}
+
+        {isTalents && (
+          <FreelancerRate
+            onChange={handleSelect}
+            selectedFilter={filters.rate}
+          />
+        )}
+
+        {isJobs && (
+          <Posted
+            onChange={handleSelect}
+            selectedFilter={filters.post}
+          />
+        )}
+
+        {isJobs && (
+          <Place />
+        )}
+
+        <Location
+          countries={countries}
+          onChange={handleMultiSelect}
+          fetchCountries={fetchCountries}
+          selectedFilter={filters.loc}
+          selectedCount={filters.loc.length}
+        />
+
+        <Languages
+          languages={languages}
+          onChange={handleMultiSelect}
+          fetchLanguages={fetchLanguages}
+          selectedFilter={filters.lang}
+          selectedCount={filters.lang.length}
+        />
+
+        <Availability
+          selectedFilter={filters.avl}
+          onChange={handleMultiSelect}
+        />
+
+        {isJobs && (
+          <Payment
+            selectedFilter={filters.payment}
+            onChange={handleMultiSelect}
+            paymentFrom={filters.p_from}
+            onSubmit={() => {}}
+            paymentTo={filters.p_to}
+          />
+        )}
+
+        {isJobs && (
+          <Budget
+            selectedFilter={filters.bud}
+            onChange={handleSelect}
+          />
+        )}
+
+        {isJobs && (
+          <Proposals
+            selectedFilter={filters.prop}
+            onChange={handleSelect}
+          />
+        )}
+
+        {isJobs && (
+          <JobDelivery />
+        )}
+
+        {isTalents && (
+          <PlaceOfWork
+            selectedFilter={filters.place}
+            onChange={handleMultiSelect}
+          />
+        )}
+      </div>
     );
   }
 }

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { shapeQsFromFilters } from '../../utils';
 
 export const getJobs = createSelector(
   state => state.find.jobs,
@@ -30,6 +31,16 @@ export const getResultsCount = createSelector(
 export const isTalentsRequested = createSelector(
   state => state.find.talentsFetchingState,
   talentsFetchingState => talentsFetchingState === 'requested',
+);
+
+export const getFilters = createSelector(
+  state => state.find.filters,
+  filters => filters,
+);
+
+export const getQuery = createSelector(
+  getFilters,
+  filters => shapeQsFromFilters(filters),
 );
 
 export const isFirstTalentsRequest = createSelector(

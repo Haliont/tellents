@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { setQueryString } from '../../utils';
 
 const filters = [['jobs', 'Jobs'], ['talents', 'Talents']];
 
@@ -21,7 +20,9 @@ const renderFilters = () => filters.map(([filterName, text]) => (
 
 class SearchForm extends React.Component {
   onSubmit = (values) => {
-    setQueryString(values);
+    const { filterCards, setFilter, searchObject } = this.props;
+    setFilter(values);
+    filterCards(searchObject);
   }
 
   render() {
